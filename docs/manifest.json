@@ -1,11 +1,11 @@
 {
-  "short_name": "TodoPWA",
-  "name": "TodoPWA",
+  "short_name": "AtomicApps",
+  "name": "Atomic App Store",
   "icons": [
     {
-      "src":"",
-      "sizes": "",
-      "type": ""
+      "src":"launch.png",
+      "sizes": "600x600",
+      "type": "image/png"
     }
   ],
   "start_url": "/?utm_source=homescreen",
