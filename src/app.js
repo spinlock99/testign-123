@@ -20,25 +20,7 @@ export class App extends Component {
       });
     }
 
-    db.table("todos").toArray().then(todos => {
-      todos.forEach(todo => {
-        store.dispatch({
-          type: "ADD_TODO",
-          payload: todo
-        });
-      });
-    });
-
     return store;
-  }
-
-  getData(event) {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-      console.log(this.responseText);
-    }
-    xhttp.open("GET", "README.txt", true);
-    xhttp.send();
   }
 
   render() {
@@ -48,7 +30,7 @@ export class App extends Component {
         <MuiThemeProvider>
           <div>
             <AppBar
-              title="Todo PWA"
+              title="Atomic App Store"
               iconClassNameRight={icon}
               onLeftIconButtonTouchTap={this.getData}
               zDepth={1}
