@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "docs"),
     filename: "bundle.js",
-    publicPath: "/todo-pwa/"
+    publicPath: "/atomic-apps/"
   },
   module: {
     loaders: [{
@@ -31,7 +31,7 @@ module.exports = {
       { from: "manifest.json" }
     ]),
     new HtmlWebpackPlugin({
-      title: "Todo PWA",
+      title: "Atomic App Store",
       template: "src/index.ejs"
     }),
     new OfflinePlugin()
