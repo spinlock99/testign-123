@@ -30,6 +30,9 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: "manifest.json" }
     ]),
+    new CopyWebpackPlugin([
+      { from: "launch.png" }
+    ]),
     new HtmlWebpackPlugin({
       title: "Atomic App Store",
       template: "src/index.ejs"
