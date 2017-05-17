@@ -1,11 +1,12 @@
 CACHE MANIFEST
-#ver:5/16/2017, 7:24:08 PM
+#ver:5/16/2017, 7:35:38 PM
 #plugin:4.7.0
 
 CACHE:
 /atomic-apps/bundle.js
 /atomic-apps/manifest.json
 /atomic-apps/launch.png
+/atomic-apps/launch-iphone.png
 /atomic-apps/
 
 NETWORK:

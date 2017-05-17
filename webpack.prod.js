@@ -28,10 +28,9 @@ module.exports = {
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([
-      { from: "manifest.json" }
-    ]),
-    new CopyWebpackPlugin([
-      { from: "launch.png" }
+      { from: "manifest.json" },
+      { from: "images/launch.png" },
+      { from: "images/launch-iphone.png" }
     ]),
     new HtmlWebpackPlugin({
       title: "Atomic App Store",
