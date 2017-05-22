@@ -1,5 +1,19 @@
 import db from "./db";
 
+export function updateName(name) {
+  console.log("updateName", name);
+  return {
+    type: "UPDATE_NAME",
+    payload: name
+  }
+}
+
+export function createApp() {
+  return {
+    type: "CREATE_APP"
+  }
+}
+
 export function addTodo(text) {
   return dispatch => {
     const todo = { text, isDone: false };

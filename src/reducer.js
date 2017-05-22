@@ -1,22 +1,25 @@
 import { List, Map } from "immutable";
 
-const init = List([]);
+const uuid = a=>a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,uuid);
 
-export default function(todos=init, action) {
+const initialState = {
+  name: "",
+  apps: {}
+};
+
+export default function(state=initialState, action) {
+  let nextState = { ...state };
+  console.log(action);
+
   switch(action.type) {
-    case "ADD_TODO":
-      return todos.push(Map(action.payload));
-    case "TOGGLE_TODO":
-      return todos.map(todo => {
-        if(todo.get("id") === action.payload) {
-          return todo.update("isDone", isDone => !isDone);
-        } else {
-          return todo;
-        }
-      });
-    case "CLEAR_TODOS":
-      return todos.filterNot(todo => todo.get("isDone"));
+    case "CREATE_APP":
+      nextState.apps[uuid()] = { name: state.name };
+      nextState.name = "";
+      return nextState;
+    case "UPDATE_NAME":
+      nextState.name = action.payload;
+      return nextState;
     default:
-      return todos;
+      return state;
   }
 }

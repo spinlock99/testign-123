@@ -6,7 +6,8 @@ import reducer from "./reducer";
 import db from "./db";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
-import { TodoList } from "./components";
+import Paper from "material-ui/Paper";
+import { AppForm } from "./components/app-form";
 
 export class App extends Component {
   configureStore() {
@@ -28,15 +29,14 @@ export class App extends Component {
     return(
       <Provider store={this.configureStore()}>
         <MuiThemeProvider>
-          <div>
+          <Paper>
             <AppBar
-              title="Atomic App Store"
+              title="Atomic App Creator"
               iconClassNameRight={icon}
               onLeftIconButtonTouchTap={this.getData}
-              zDepth={1}
             />
-            <TodoList />
-          </div>
+            <AppForm />
+          </Paper>
         </MuiThemeProvider>
       </Provider>
     );
