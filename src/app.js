@@ -8,8 +8,21 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import Paper from "material-ui/Paper";
 import { AppForm } from "./components/app-form";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { LeftNav } from "./components/left-nav";
+
+const About = () => (
+  <div>
+    <h2>About</h2>
+  </div>
+)
 
 export class App extends Component {
+  constructor(props) {
+    super(props);
+    this.store = this.configureStore();
+  }
+
   configureStore() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
@@ -26,18 +39,25 @@ export class App extends Component {
 
   render() {
     const icon = "muidocs-icon-navigation-expand-more";
+    const action = { type: "TOGGLE_LEFT_NAV", payload: true };
+    const openLeftNav = event => this.store.dispatch(action);
+
     return(
-      <Provider store={this.configureStore()}>
-        <MuiThemeProvider>
-          <Paper>
-            <AppBar
-              title="Atomic App Creator"
-              iconClassNameRight={icon}
-              onLeftIconButtonTouchTap={this.getData}
-            />
-            <AppForm />
-          </Paper>
-        </MuiThemeProvider>
+      <Provider store={this.store}>
+        <Router>
+          <MuiThemeProvider>
+            <Paper>
+              <AppBar
+                title="Atomic App Creator"
+                iconClassNameRight={icon}
+                onLeftIconButtonTouchTap={openLeftNav}
+              />
+              <LeftNav />
+              <Route exact path="/" component={AppForm} />
+              <Route path="/about" component={About} />
+            </Paper>
+          </MuiThemeProvider>
+        </Router>
       </Provider>
     );
   }

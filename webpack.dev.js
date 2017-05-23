@@ -27,5 +27,8 @@ module.exports = {
       template: "src/index.ejs"
     }),
     new OfflinePlugin()
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
 };

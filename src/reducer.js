@@ -18,6 +18,9 @@ export default function(state=initialState, action) {
     case "UPDATE_NAME":
       nextState.name = action.payload;
       return nextState;
+    case "TOGGLE_LEFT_NAV":
+      nextState.leftNavOpen = action.payload;
+      return nextState;
     default:
       return state;
   }
