@@ -15,19 +15,22 @@ export const AppForm = connect(
     return bindActionCreators({ createApp, updateName }, dispatch);
   }
 )(({ createApp, name, updateName }) => {
-  const handleCreate = event => createApp();
-  const handleKeyUp = event => updateName(event.target.value);
-
-  console.log("name: ", name);
+  function handleCreate(event) { createApp(); }
+  function handleKeyUp(event) {
+    if (event.which === 13) {
+      createApp();
+      event.target.value = "";
+    };
+    updateName(event.target.value);
+  }
 
   return (
     <div style={{ padding: "20px" }}>
-      <TextField defaultValue={name} hintText="Enter App Name" fullWidth={true} onKeyUp={handleKeyUp} />
-      {/*todos.map(todo =>
-        <div style={{ margin: "20px 0 20px 0" }} key={todo.get("id")}>
-          <Divider />
-        </div>
-      )*/}
+      <TextField
+        hintText="Enter App Name"
+        fullWidth={true}
+        onKeyUp={handleKeyUp}
+      />
       <RaisedButton
         label="Create App"
         primary={true}

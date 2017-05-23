@@ -9,7 +9,6 @@ const initialState = {
 
 export default function(state=initialState, action) {
   let nextState = { ...state };
-  console.log(action);
 
   switch(action.type) {
     case "CREATE_APP":

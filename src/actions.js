@@ -1,7 +1,6 @@
 import db from "./db";
 
 export function updateName(name) {
-  console.log("updateName", name);
   return {
     type: "UPDATE_NAME",
     payload: name
