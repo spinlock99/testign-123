@@ -1,21 +1,15 @@
-import React, { Component } from "react";
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-import reducer from "./reducer";
-import db from "./db";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { Routes } from "./routes";
+import { BrowserRouter as Router } from "react-router-dom";
+import { LeftNav } from "./components/left-nav";
 import AppBar from "material-ui/AppBar";
 import Paper from "material-ui/Paper";
-import { AppForm } from "./components/app-form";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { LeftNav } from "./components/left-nav";
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import reducer from "./reducer";
+import db from "./db";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import React, { Component } from "react";
 
 export class App extends Component {
   constructor(props) {
@@ -25,7 +19,8 @@ export class App extends Component {
 
   configureStore() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+    const storeEnhancer =  composeEnhancers(applyMiddleware(thunk));
+    const store = createStore(reducer, storeEnhancer);
 
     if (module.hot) {
       module.hot.accept("./reducer", () => {
@@ -50,11 +45,9 @@ export class App extends Component {
               <AppBar
                 title="Atomic App Creator"
                 iconClassNameRight={icon}
-                onLeftIconButtonTouchTap={openLeftNav}
-              />
+                onLeftIconButtonTouchTap={openLeftNav} />
               <LeftNav />
-              <Route exact path="/" component={AppForm} />
-              <Route path="/about" component={About} />
+              <Routes />
             </Paper>
           </MuiThemeProvider>
         </Router>
