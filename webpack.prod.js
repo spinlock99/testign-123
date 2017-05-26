@@ -18,7 +18,7 @@ module.exports = {
       loader: "babel-loader",
       include: __dirname,
       query: {
-        presets: ["es2016", "react"]
+        presets: ["es2015", "react"]
       }
     }]
   },

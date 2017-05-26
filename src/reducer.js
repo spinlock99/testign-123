@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export default function(state=initialState, action) {
-  let nextState = { ...state };
+  let nextState = JSON.parse(JSON.stringify(state));
 
   switch(action.type) {
     case "CREATE_APP":
