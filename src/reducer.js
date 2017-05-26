@@ -12,7 +12,8 @@ export default function(state=initialState, action) {
 
   switch(action.type) {
     case "CREATE_APP":
-      nextState.apps[uuid()] = { name: state.name };
+      const id = uuid();
+      nextState.apps[id] = { id, name: state.name };
       nextState.name = "";
       return nextState;
     case "UPDATE_NAME":
