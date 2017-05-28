@@ -1,4 +1,5 @@
 var path = require("path");
+var webpack = require("webpack");
 var OfflinePlugin = require("offline-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -22,6 +23,9 @@ module.exports = {
     }]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      BASENAME: JSON.stringify("/")
+    }),
     new HtmlWebpackPlugin({
       title: "Atomic App Store",
       template: "src/index.ejs"

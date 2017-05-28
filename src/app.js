@@ -39,7 +39,7 @@ export class App extends Component {
 
     return(
       <Provider store={this.store}>
-        <Router>
+        <Router basename={BASENAME}>
           <MuiThemeProvider>
             <Paper>
               <AppBar
