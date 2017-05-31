@@ -1,7 +1,5 @@
 import { List, Map } from "immutable";
 
-const uuid = a=>a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,uuid);
-
 const initialState = {
   name: "",
   apps: {}
@@ -12,8 +10,8 @@ export default function(state=initialState, action) {
 
   switch(action.type) {
     case "CREATE_APP":
-      const id = uuid();
-      nextState.apps[id] = { id, name: state.name };
+      const app = action.payload;
+      nextState.apps[app.id] = { id: app.id, name: app.name };
       nextState.name = "";
       return nextState;
     case "UPDATE_NAME":
@@ -25,6 +23,8 @@ export default function(state=initialState, action) {
     case "TOGGLE_LEFT_NAV":
       nextState.leftNavOpen = action.payload;
       return nextState;
+    case "CREATE_APP_SUCCESS":
+      console.log("CREATE_APP_SUCCESS");
     default:
       return state;
   }
