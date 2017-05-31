@@ -1,5 +1,11 @@
 import db from "./db";
 
+export function createApp(name) {
+  return {
+    type: "CREATE_APP"
+  }
+}
+
 export function updateName(name) {
   return {
     type: "UPDATE_NAME",
@@ -7,10 +13,14 @@ export function updateName(name) {
   }
 }
 
-export function createApp() {
+export function updateFiles(appId, result) {
   return {
-    type: "CREATE_APP"
-  }
+    type: "UPDATE_FILES",
+    payload: {
+      appId,
+      files: result.filesUploaded
+    }
+  };
 }
 
 export function addTodo(text) {

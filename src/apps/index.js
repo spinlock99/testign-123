@@ -17,18 +17,22 @@ export const Apps = connect(
     return bindActionCreators({ createApp, updateName }, dispatch);
   }
 )(({ apps, createApp, name, updateName }) => {
-  function handleCreate(event) { createApp(); }
+  const handleClick = event => createApp(name);
   function handleKeyUp(event) {
     if (event.which === 13) {
-      createApp();
-      event.target.value = "";
-    };
-    updateName(event.target.value);
+      createApp(name);
+      updateName("");
+    } else if (event.which === 8) {
+      updateName(name.slice(0, -1));
+    } else {
+      updateName(name + event.key);
+    }
   }
 
   return (
     <div style={{ padding: "20px" }}>
       <TextField
+        value={name}
         hintText="Enter App Name"
         fullWidth={true}
         onKeyUp={handleKeyUp}
@@ -37,7 +41,7 @@ export const Apps = connect(
         label="Create App"
         primary={true}
         fullWidth={true}
-        onClick={handleCreate}
+        onClick={handleClick}
       />
       {!!apps.length && apps.map(app => (
         <div key={app.id}>

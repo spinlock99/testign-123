@@ -19,6 +19,9 @@ export default function(state=initialState, action) {
     case "UPDATE_NAME":
       nextState.name = action.payload;
       return nextState;
+    case "UPDATE_FILES":
+      nextState.apps[action.payload.appId].files = action.payload.files;
+      return nextState;
     case "TOGGLE_LEFT_NAV":
       nextState.leftNavOpen = action.payload;
       return nextState;

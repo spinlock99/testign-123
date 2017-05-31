@@ -24,7 +24,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      BASENAME: JSON.stringify("/")
+      BASENAME: JSON.stringify("/"),
+      FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
     new HtmlWebpackPlugin({
       title: "Atomic App Store",

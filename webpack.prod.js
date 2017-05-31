@@ -25,7 +25,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "process.env": { NODE_ENV: JSON.stringify("production") },
-      BASENAME: JSON.stringify("/atomic-apps/")
+      BASENAME: JSON.stringify("/atomic-apps/"),
+      FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([
