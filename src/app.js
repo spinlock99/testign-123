@@ -4,8 +4,8 @@ import { LeftNav } from "./components/left-nav";
 import AppBar from "material-ui/AppBar";
 import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import reducer from "./reducer";
-import db from "./db";
+import reducer from "./data/reducer";
+import db from "./data/db";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -23,8 +23,8 @@ export class App extends Component {
     const store = createStore(reducer, storeEnhancer);
 
     if (module.hot) {
-      module.hot.accept("./reducer", () => {
-        const nextRootReducer = require("./reducer");
+      module.hot.accept("./data/reducer", () => {
+        const nextRootReducer = require("./data/reducer");
         store.replaceReducer(nextRootReducer);
       });
     }

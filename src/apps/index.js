@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { createApp, updateName } from "../actions";
+import { createApp, updateName } from "../data/actions";
 import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";

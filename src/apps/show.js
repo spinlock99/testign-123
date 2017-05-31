@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import ReactFilestack from "react-filestack";
 import RaisedButton from "material-ui/RaisedButton";
-import { updateFiles } from "../actions";
+import { updateFiles } from "../data/actions";
 import { createSelector } from "reselect";
 
 const getAppId = (state, props) => props.match.params.appId;
