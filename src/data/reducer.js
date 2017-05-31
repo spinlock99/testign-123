@@ -23,8 +23,12 @@ export default function(state=initialState, action) {
     case "TOGGLE_LEFT_NAV":
       nextState.leftNavOpen = action.payload;
       return nextState;
+    case "UPDATE_FILES_SUCCESS":
+      console.log("UPDATE_FILES_SUCCESS");
+      return state;
     case "CREATE_APP_SUCCESS":
       console.log("CREATE_APP_SUCCESS");
+      return state;
     default:
       return state;
   }
