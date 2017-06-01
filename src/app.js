@@ -32,6 +32,12 @@ export class App extends Component {
     return store;
   }
 
+  componentDidMount() {
+    db.table("apps").toArray().then(apps =>
+      apps.forEach(app =>
+        this.store.dispatch({ type: "CREATE_APP", payload: app })));
+  }
+
   render() {
     const icon = "muidocs-icon-navigation-expand-more";
     const action = { type: "TOGGLE_LEFT_NAV", payload: true };
