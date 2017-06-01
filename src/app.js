@@ -17,6 +17,12 @@ export class App extends Component {
     this.store = this.configureStore();
   }
 
+  componentDidMount() {
+    db.table("apps").toArray().then(apps =>
+      apps.forEach(app =>
+        this.store.dispatch({ type: "INSERT_APP", payload: app })));
+  }
+
   configureStore() {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     const storeEnhancer =  composeEnhancers(applyMiddleware(thunk));
@@ -30,12 +36,6 @@ export class App extends Component {
     }
 
     return store;
-  }
-
-  componentDidMount() {
-    db.table("apps").toArray().then(apps =>
-      apps.forEach(app =>
-        this.store.dispatch({ type: "CREATE_APP", payload: app })));
   }
 
   render() {

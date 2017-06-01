@@ -1,20 +1,21 @@
 export const AppsShow = connect(
   (state, ownProps) => ({
-    apps: state.apps,
+    apps: getApps(state),
     appId: getAppId(state, ownProps),
     files: getFiles(state, ownProps)
   }),
   dispatch => bindActionCreators({ updateFiles }, dispatch)
 )(({ apps, appId, files, updateFiles }) =>
+  !apps ? <Redirect to={{ pathname: '/' }}/> :
   <div>
     <AppName name={apps[appId].name} />
-    {!!files.length && files.map(file =>
+    {files && files.map(file =>
       <img key={file.handle} src={file.url} style={imgCenter} />)}
     <Upload appId={appId} updateFiles={updateFiles} />
   </div>
 );
 
-const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>;
+const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>
 
 const Upload = ({ appId, updateFiles }) =>
   <ReactFilestack
@@ -26,21 +27,21 @@ const Upload = ({ appId, updateFiles }) =>
         <RaisedButton
           label="Upload a File"
           onClick={onPick} />
-      </div>}
-  />;
+      </div>} />
 
 const getAppId = (state, props) => props.match.params.appId;
-const getApp = state => state.apps;
+const getApps = state => !!Object.keys(state.apps).length ? state.apps : false;
 const getFiles = createSelector(
   getAppId,
-  getApp,
-  (appId, apps) => apps[appId].files || []
+  getApps,
+  (appId, apps) => !apps ? false : apps[appId].files
 );
 
 const imgCenter = { width: "90vw", display: "block", margin: "0 auto" };
 const upload = { marginTop: "40vh", textAlign: "center" };
 
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import ReactFilestack from "react-filestack";

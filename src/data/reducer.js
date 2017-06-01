@@ -6,23 +6,35 @@ const initialState = {
 };
 
 export default function(state=initialState, action) {
+  const app = action.payload;
   let nextState = JSON.parse(JSON.stringify(state));
 
   switch(action.type) {
+    //
+    // action.payload is an app
+    //
     case "CREATE_APP":
-      const app = action.payload;
       nextState.apps[app.id] = { id: app.id, name: app.name };
       nextState.name = "";
       return nextState;
-    case "UPDATE_NAME":
-      nextState.name = action.payload;
+    case "INSERT_APP":
+      nextState.apps[app.id] = app;
       return nextState;
     case "UPDATE_FILES":
-      nextState.apps[action.payload.appId].files = action.payload.files;
+      nextState.apps[app.appId].files = app.files;
+      return nextState;
+    //
+    // action.payload is not an app
+    //
+    case "UPDATE_NAME":
+      nextState.name = action.payload;
       return nextState;
     case "TOGGLE_LEFT_NAV":
       nextState.leftNavOpen = action.payload;
       return nextState;
+    //
+    // placeholders
+    //
     case "UPDATE_FILES_SUCCESS":
       console.log("UPDATE_FILES_SUCCESS");
       return state;
