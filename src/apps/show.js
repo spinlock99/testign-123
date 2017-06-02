@@ -10,7 +10,20 @@ export const AppsShow = connect(
   <div>
     <AppName name={apps[appId].name} />
     {files && files.map(file =>
-      <img key={file.handle} src={file.url} style={imgCenter} />)}
+      <div key={file.handle}>
+        <img
+          style={{ margin: "5vw" }}
+          src={`https://process.filestackapi.com/resize=width:140/${file.handle}`} />
+        <img
+          style={{ margin: "5vw" }}
+          src={`https://process.filestackapi.com/resize=width:152/${file.handle}`} />
+        <img
+          style={{ margin: "5vw" }}
+          src={`https://process.filestackapi.com/resize=width:167/${file.handle}`} />
+        <img
+          style={{ margin: "5vw" }}
+          src={`https://process.filestackapi.com/resize=width:180/${file.handle}`} />
+      </div>)}
     <Upload appId={appId} updateFiles={updateFiles} />
   </div>
 );
