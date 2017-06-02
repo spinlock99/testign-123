@@ -37,17 +37,17 @@ export const Apps = connect(
         fullWidth={true}
         onKeyUp={handleKeyUp}
       />
+      {!!apps.length && apps.map(app => (
+        <div key={app.id}>
+          <Link to={`/apps/${app.id}`}>{app.name}</Link><br />
+        </div>
+      ))}
       <RaisedButton
         label="Create App"
         primary={true}
         fullWidth={true}
         onClick={handleClick}
       />
-      {!!apps.length && apps.map(app => (
-        <div key={app.id}>
-          <Link to={`/apps/${app.id}`}>{app.name}</Link><br />
-        </div>
-      ))}
     </div>
   );
 });
