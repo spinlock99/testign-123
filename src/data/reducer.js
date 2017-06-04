@@ -1,37 +1,31 @@
 import { List, Map } from "immutable";
 
-const initialState = {
-  name: "",
-  apps: {}
-};
-
-export default function(state=initialState, action) {
+export function appsReducer(state={}, action) {
   const app = action.payload;
   let nextState = JSON.parse(JSON.stringify(state));
 
   switch(action.type) {
+    case "UPDATE_TOKEN":
+      nextState.token = action.payload;
+      return nextState;
+    case "CREATE_TOKEN":
+      nextState.authenticated = true;
+      return nextState;
     //
     // action.payload is an app
     //
     case "CREATE_APP":
-      nextState.apps[app.id] = { id: app.id, name: app.name };
-      nextState.name = "";
+      nextState[app.id] = { id: app.id, name: app.name };
       return nextState;
     case "INSERT_APP":
-      nextState.apps[app.id] = app;
+      nextState[app.id] = app;
       return nextState;
     case "UPDATE_FILES":
-      nextState.apps[app.appId].files = app.files;
+      nextState[app.appId].files = app.files;
       return nextState;
     //
     // action.payload is not an app
     //
-    case "UPDATE_NAME":
-      nextState.name = action.payload;
-      return nextState;
-    case "TOGGLE_LEFT_NAV":
-      nextState.leftNavOpen = action.payload;
-      return nextState;
     //
     // placeholders
     //
@@ -43,5 +37,25 @@ export default function(state=initialState, action) {
       return state;
     default:
       return state;
+  }
+}
+
+export function leftNavOpenReducer(state=false, action) {
+  switch(action.type) {
+    case "TOGGLE_LEFT_NAV":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export function nameReducer(state="", action) {
+  switch(action.type) {
+    case "UPDATE_NAME":
+      return action.payload
+    case "CREATE_APP":
+      return ""
+    default:
+      return state
   }
 }

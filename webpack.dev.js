@@ -23,6 +23,7 @@ module.exports = {
     }]
   },
   plugins: [
+    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       BASENAME: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
