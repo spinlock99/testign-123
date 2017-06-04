@@ -21,17 +21,22 @@ export const Apps = connect(
         }
       }}
     />
-    {!!apps.length && apps.map(app => (
-      <div key={app.id}>
-        <Link to={`/apps/${app.id}`}>{app.name}</Link><br />
-      </div>
-    ))}
-    <RaisedButton
-      label="Create App"
-      primary={true}
-      fullWidth={true}
-      onClick={event => createApp(name)}
-    />
+    <div style={{ height: "65vh", overflow: "scroll" }}>
+      {!!apps.length && apps.map(app => (
+        <div key={app.id}>
+          <Link to={`/apps/${app.id}`}>{app.name}</Link><br />
+        </div>
+      ))}
+    </div>
+    <Toolbar>
+      <ToolbarGroup>
+        <RaisedButton
+          label="Create App"
+          primary={true}
+          fullWidth={true}
+          onClick={event => createApp(name)} />
+      </ToolbarGroup>
+    </Toolbar>
   </div>
 );
 
@@ -44,3 +49,10 @@ import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
+import DropDownMenu from "material-ui/DropDownMenu";
+import MenuItem from "material-ui/MenuItem";
+import FontIcon from "material-ui/FontIcon";
+import IconMenu from "material-ui/IconMenu";
+import IconButton from "material-ui/IconButton";
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+
