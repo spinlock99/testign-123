@@ -6,7 +6,7 @@ export const AppsShow = connect(
   }),
   dispatch => bindActionCreators({ updateFiles }, dispatch)
 )(({ apps, appId, files, updateFiles }) =>
-  !apps ? <Redirect to={{ pathname: '/' }}/> :
+  !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
     <AppName name={apps[appId].name} />
     {files && files.map(file =>

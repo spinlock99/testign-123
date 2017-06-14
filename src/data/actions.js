@@ -22,7 +22,7 @@ export function createApp(name) {
     const app = { id: uuid(), name: getState().name };
     dispatch({ type: "CREATE_APP", payload: app });
     db.table("apps").add(app).then(id => {
-      dispatch({ type: "CREATE_APP_SUCCESS" });
+      dispatch({ type: "CREATE_APP_SUCCESS", payload: id });
     });
   }
 }

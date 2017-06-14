@@ -12,20 +12,26 @@ import { TextField } from "redux-form-material-ui";
 const centered = { margin: "20px auto", textAlign: "center", width: "100%" }
 const flushRight = { float: "right", marginTop: "20px" };
 
-
 export const Routes = props =>
   <div>
     <Route path="/login" component={ReduxLogin} />
     <Route path="/about" component={props => <h2>About</h2>} />
-    <PrivateRoute exact path="/" component={Apps} />
-    <PrivateRoute path="/apps/:appId" component={AppsShow} />
+    <PrivateRoute exact path="/" component={Apps} dispatch={props.dispatch} />
+    <PrivateRoute path="/apps/:appId" component={AppsShow} dispatch={props.dispatch} />
   </div>
 
-const PrivateRoute = ({ component: Component, ...rest }) =>
-  <Route {...rest} render={props => auth.authenticated
-    ? <Component {...props} />
-    : <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-  } />
+class PrivateRoute extends React.Component {
+  componentWillUpdate() { this.props.dispatch({ type: "CLEAR_REDIRECT" }) }
+  render() {
+    const { component: Component, ...rest } = this.props
+    return(
+      <Route {...rest} render={props => auth.authenticated
+          ? <Component {...this.props} />
+          : <Redirect to={{ pathname: "/login", state: { from: this.props.location } }} />
+      } />
+    )
+  }
+}
 
 const auth = {
   authenticated: false,

@@ -1,11 +1,13 @@
 export const Apps = connect(
-  (state) => ({
+  state => ({
+    apps: Object.keys(state.apps).map(key => state.apps[key]),
     name: state.name,
-    apps: Object.keys(state.apps).map(key => state.apps[key])
+    redirect: state.redirect
   }),
-  (dispatch) => bindActionCreators({ createApp, updateName }, dispatch)
-)(({ apps, createApp, name, updateName }) =>
-  <div style={{ padding: "20px" }}>
+  dispatch => bindActionCreators({ createApp, updateName }, dispatch)
+)(({ apps, createApp, name, redirect, updateName }) => redirect !== ""
+  ? <Redirect to={`/apps/${redirect}`} />
+  : <div style={{ padding: "20px" }}>
     <TextField
       value={name}
       hintText="Enter App Name"
@@ -41,7 +43,7 @@ export const Apps = connect(
 );
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { createApp, updateName } from "../data/actions";

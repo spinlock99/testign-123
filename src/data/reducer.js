@@ -32,9 +32,6 @@ export function appsReducer(state={}, action) {
     case "UPDATE_FILES_SUCCESS":
       console.log("UPDATE_FILES_SUCCESS");
       return state;
-    case "CREATE_APP_SUCCESS":
-      console.log("CREATE_APP_SUCCESS");
-      return state;
     default:
       return state;
   }
@@ -43,7 +40,7 @@ export function appsReducer(state={}, action) {
 export function leftNavOpenReducer(state=false, action) {
   switch(action.type) {
     case "TOGGLE_LEFT_NAV":
-      return action.payload;
+      return action.payload
     default:
       return state;
   }
@@ -54,6 +51,17 @@ export function nameReducer(state="", action) {
     case "UPDATE_NAME":
       return action.payload
     case "CREATE_APP":
+      return ""
+    default:
+      return state
+  }
+}
+
+export function redirectReducer(state="", action) {
+  switch(action.type) {
+    case "CREATE_APP_SUCCESS":
+      return action.payload
+    case "CLEAR_REDIRECT":
       return ""
     default:
       return state
