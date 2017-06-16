@@ -4,7 +4,13 @@ import { LeftNav } from "./components/left-nav";
 import AppBar from "material-ui/AppBar";
 import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { appsReducer, leftNavOpenReducer, nameReducer, redirectReducer, tokenReducer } from "./data/reducer";
+import {
+  appsReducer,
+  leftNavOpenReducer,
+  nameReducer,
+  redirectReducer,
+  tokenReducer
+} from "./data/reducer";
 import db from "./data/db";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -39,15 +45,22 @@ export class App extends Component {
 
     if (module.hot) {
       module.hot.accept("./data/reducer", () => {
-        const { appsReducer, leftNavOpenReducer, nameReducer } = require("./data/reducer");
+        const {
+          appsReducer,
+          leftNavOpenReducer,
+          nameReducer,
+          redirectReducer,
+          tokenReducer
+        } = require("./data/reducer");
         const formReducer = require("redux-form").reducer
         const nextReducer = combineReducers({
           apps: appsReducer,
           form: formReducer,
           leftNavOpen: leftNavOpenReducer,
-          name: nameReducer
+          name: nameReducer,
+          redirect: redirectReducer,
+          token: tokenReducer
         })
-        console.log(nextReducer)
         store.replaceReducer(nextReducer);
       });
     }
