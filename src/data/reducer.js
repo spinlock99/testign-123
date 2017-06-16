@@ -5,12 +5,6 @@ export function appsReducer(state={}, action) {
   let nextState = JSON.parse(JSON.stringify(state));
 
   switch(action.type) {
-    case "UPDATE_TOKEN":
-      nextState.token = action.payload;
-      return nextState;
-    case "CREATE_TOKEN":
-      nextState.authenticated = true;
-      return nextState;
     //
     // action.payload is an app
     //
@@ -63,6 +57,16 @@ export function redirectReducer(state="", action) {
       return action.payload
     case "CLEAR_REDIRECT":
       return ""
+    default:
+      return state
+  }
+}
+
+export function tokenReducer(state="", action) {
+  switch(action.type) {
+    case "CREATE_TOKEN":
+      return action.payload.githubToken
+    case "UPDATE_TOKEN":
     default:
       return state
   }

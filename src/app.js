@@ -4,7 +4,7 @@ import { LeftNav } from "./components/left-nav";
 import AppBar from "material-ui/AppBar";
 import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { appsReducer, leftNavOpenReducer, nameReducer, redirectReducer } from "./data/reducer";
+import { appsReducer, leftNavOpenReducer, nameReducer, redirectReducer, tokenReducer } from "./data/reducer";
 import db from "./data/db";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -32,7 +32,8 @@ export class App extends Component {
       form: formReducer,
       leftNavOpen: leftNavOpenReducer,
       name: nameReducer,
-      redirect: redirectReducer
+      redirect: redirectReducer,
+      token: tokenReducer
     })
     const store = createStore(reducer, storeEnhancer);
 
