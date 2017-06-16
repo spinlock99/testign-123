@@ -10,25 +10,29 @@ export const AppsShow = connect(
   <div>
     <AppName name={apps[appId].name} />
     {files && files.map(file =>
-      <div key={file.handle}>
-        <img
-          style={{ margin: "5vw" }}
-          src={`https://process.filestackapi.com/resize=width:140/${file.handle}`} />
-        <img
-          style={{ margin: "5vw" }}
-          src={`https://process.filestackapi.com/resize=width:152/${file.handle}`} />
-        <img
-          style={{ margin: "5vw" }}
-          src={`https://process.filestackapi.com/resize=width:167/${file.handle}`} />
-        <img
-          style={{ margin: "5vw" }}
-          src={`https://process.filestackapi.com/resize=width:180/${file.handle}`} />
-      </div>)}
+      <Portfolio file={file} />
+    )}
     <Upload appId={appId} updateFiles={updateFiles} />
   </div>
 );
 
 const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>
+
+const Portfolio = ({ file }) =>
+  <div key={file.handle}>
+    <img
+      style={{ margin: "5vw" }}
+      src={`https://process.filestackapi.com/resize=width:140/${file.handle}`} />
+    <img
+      style={{ margin: "5vw" }}
+      src={`https://process.filestackapi.com/resize=width:152/${file.handle}`} />
+    <img
+      style={{ margin: "5vw" }}
+      src={`https://process.filestackapi.com/resize=width:167/${file.handle}`} />
+    <img
+      style={{ margin: "5vw" }}
+      src={`https://process.filestackapi.com/resize=width:180/${file.handle}`} />
+  </div>
 
 const Upload = ({ appId, updateFiles }) =>
   <ReactFilestack
@@ -42,8 +46,10 @@ const Upload = ({ appId, updateFiles }) =>
           onClick={onPick} />
       </div>} />
 
-const getAppId = (state, props) => props.match.params.appId;
+const getAppId = (state, props) => props.match.params.appId
+
 const getApps = state => !!Object.keys(state.apps).length ? state.apps : false;
+
 const getFiles = createSelector(
   getAppId,
   getApps,
