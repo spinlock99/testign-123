@@ -29,7 +29,8 @@ module.exports = {
       BASENAME: JSON.stringify("/atomic-apps/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
-    new webpack.optimize.UglifyJsPlugin(),
+    // uglify should be turned back on but it makes it hard to debug prod
+    //new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([
       { from: "manifest.json" },
       { from: "images/launch.png" },
