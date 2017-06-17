@@ -2,24 +2,33 @@ export const AppsShow = connect(
   (state, ownProps) => ({
     apps: getApps(state),
     appId: getAppId(state, ownProps),
-    files: getFiles(state, ownProps)
+    files: getFiles(state, ownProps),
+    token: state.token
   }),
   dispatch => bindActionCreators({ updateFiles }, dispatch)
-)(({ apps, appId, files, updateFiles }) =>
+)(({ apps, appId, files, token, updateFiles }) =>
   !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
     <AppName name={apps[appId].name} />
-    {files && files.map(file =>
-      <Portfolio file={file} />
-    )}
-    <Upload appId={appId} updateFiles={updateFiles} />
+    {files && <RaisedButton label="Upload to Github" onClick={handleClick(token)} />}
+    {files && files.map(file => <Portfolio key={file.handle} file={file} />)}
+    {!files && <Upload appId={appId} updateFiles={updateFiles} />}
   </div>
 );
+
+const handleClick = token => event =>
+  axios.post("https://api.github.com/graphql", {
+      query: " query { __schema { types { name kind description fields { name } } } } ",
+      variables: "{}"
+    },
+    { headers: { "Authorization": "bearer" + token} }
+  ).then(response => console.log(response))
+    //.catch(error => {console.log("token: ", token)})
 
 const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>
 
 const Portfolio = ({ file }) =>
-  <div key={file.handle}>
+  <div>
     <img
       style={{ margin: "5vw" }}
       src={`https://process.filestackapi.com/resize=width:140/${file.handle}`} />
@@ -63,7 +72,11 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import ContentAdd from "material-ui/svg-icons/content/add";
+import FloatingActionButton from "material-ui/FloatingActionButton";
+import GitHub from "github-api";
 import ReactFilestack from "react-filestack";
 import RaisedButton from "material-ui/RaisedButton";
 import { updateFiles } from "../data/actions";
 import { createSelector } from "reselect";
+import axios from "axios";
