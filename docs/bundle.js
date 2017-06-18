@@ -27113,17 +27113,25 @@ var AppsShow = exports.AppsShow = (0, _reactRedux.connect)(function (state, ownP
 var handleClick = function handleClick(token) {
   return function (event) {
     return _axios2.default.post("https://api.github.com/graphql", {
-      query: " query { __schema { types { name kind description fields { name } } } } ",
-      variables: "{}"
-    }, { headers: { "Authorization": "bearer" + token } }).then(function (response) {
-      return console.log(response);
-    }
-    //.catch(error => {console.log("token: ", token)})
-
-    );
+      //
+      // query the schema
+      // query: " query { __schema { types { name kind description fields { name } } } } ",
+      //
+      query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
+      variables: '{ "numberOfRepos": 3 }'
+    }, { headers: { "Authorization": "bearer " + token } }).then(function (_ref2) {
+      var _ref2$data = _ref2.data,
+          data = _ref2$data.data,
+          errors = _ref2$data.errors;
+      return !!errors ? errors.forEach(function (error) {
+        return console.log("Github Error: ", error.message);
+      }) : console.log(data);
+    });
   };
-};var AppName = function AppName(_ref2) {
-  var name = _ref2.name;
+};
+
+var AppName = function AppName(_ref3) {
+  var name = _ref3.name;
   return _react2.default.createElement(
     "h3",
     { style: { marginLeft: "5vw" } },
@@ -27131,8 +27139,8 @@ var handleClick = function handleClick(token) {
   );
 };
 
-var Portfolio = function Portfolio(_ref3) {
-  var file = _ref3.file;
+var Portfolio = function Portfolio(_ref4) {
+  var file = _ref4.file;
   return _react2.default.createElement(
     "div",
     null,
@@ -27151,17 +27159,17 @@ var Portfolio = function Portfolio(_ref3) {
   );
 };
 
-var Upload = function Upload(_ref4) {
-  var appId = _ref4.appId,
-      updateFiles = _ref4.updateFiles;
+var Upload = function Upload(_ref5) {
+  var appId = _ref5.appId,
+      updateFiles = _ref5.updateFiles;
   return _react2.default.createElement(_reactFilestack2.default, {
     apikey: "A20mv1w46TXymdcWvpYuQz",
     buttonText: "Add Icon",
     onSuccess: function onSuccess(result) {
       return updateFiles(appId, result);
     },
-    render: function render(_ref5) {
-      var onPick = _ref5.onPick;
+    render: function render(_ref6) {
+      var onPick = _ref6.onPick;
       return _react2.default.createElement(
         "div",
         { style: upload },

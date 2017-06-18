@@ -18,12 +18,18 @@ export const AppsShow = connect(
 
 const handleClick = token => event =>
   axios.post("https://api.github.com/graphql", {
-      query: " query { __schema { types { name kind description fields { name } } } } ",
-      variables: "{}"
+      //
+      // query the schema
+      // query: " query { __schema { types { name kind description fields { name } } } } ",
+      //
+      query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
+      variables: '{ "numberOfRepos": 3 }'
     },
-    { headers: { "Authorization": "bearer" + token} }
-  ).then(response => console.log(response))
-    //.catch(error => {console.log("token: ", token)})
+    { headers: { "Authorization": "bearer " + token} }
+  ).then(({ data: { data, errors } }) => !!errors
+    ? errors.forEach(error => console.log("Github Error: ", error.message))
+    : console.log(data))
+
 
 const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>
 

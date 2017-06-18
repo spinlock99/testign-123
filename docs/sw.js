@@ -12,7 +12,7 @@ var __wpo = {
   },
   "externals": [],
   "hashesMap": {
-    "29d030eaaa4ad492ac70bcb65046680761a2f2cb": "/atomic-apps/bundle.js",
+    "8ce77f12ad4d303551114c8806c13a03f594db86": "/atomic-apps/bundle.js",
     "53e9d597d97ff25e38f038188de6d7a0347275b2": "/atomic-apps/manifest.json",
     "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "/atomic-apps/launch.png",
     "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "/atomic-apps/launch-iphone.png",
@@ -20,7 +20,7 @@ var __wpo = {
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "6/17/2017, 4:25:45 PM",
+  "version": "6/17/2017, 5:21:27 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.8.1",
   "relativePaths": false
