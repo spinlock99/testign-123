@@ -16,20 +16,45 @@ export const AppsShow = connect(
   </div>
 );
 
-const handleClick = token => event =>
-  axios.post("https://api.github.com/graphql", {
-      //
-      // query the schema
-      // query: " query { __schema { types { name kind description fields { name } } } } ",
-      //
-      query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
-      variables: '{ "numberOfRepos": 3 }'
-    },
-    { headers: { "Authorization": "bearer " + token} }
-  ).then(({ data: { data, errors } }) => !!errors
-    ? errors.forEach(error => console.log("Github Error: ", error.message))
-    : console.log(data))
+const github = token => axios.create({
+  baseURL: "https://api.github.com/",
+  headers: { "Authorization": "bearer " + token }
+})
+const data = (query, variables="{}") => ({ query , variables })
+//
+// Query the Schema:
+//
+// query: " query { __schema { types { name kind description fields { name } } } } ",
+//
 
+//
+// Get Last 3 Repos:
+//
+// query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
+//
+const findIssueID = ` query {
+  repository(owner:"spinlock99", name: "atomic-apps") {
+    issue(number: 1) { id }
+  }
+}`
+const addReaction = id => ` mutation {
+  addReaction(input: { subjectId: "${id}", content: HEART }) {
+    reaction { content }
+    subject { id }
+  }
+}`
+const rejectErrors = ({ data: { data, errors } }) =>
+  !!errors ? Promise.reject({ errors }) : data
+
+const handleClick = token => event =>
+  github(token)
+    .post("graphql", data(findIssueID))
+    .then(rejectErrors)
+    .then(data => data.repository.issue.id)
+    .then(id => github(token)
+      .post("graphql", data(addReaction(id)))
+      .then(rejectErrors))
+    .catch(errors => console.log("errors: ", errors))
 
 const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>
 
