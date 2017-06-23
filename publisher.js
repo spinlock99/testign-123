@@ -7,19 +7,18 @@ app.use(bodyParser.json())
 
 const publisher = zmq.socket("pub")
 publisher.bindSync("tcp://*:5556")
-publisher.bindSync("ipc://weather.ipc")
 
 app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
-     // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
+   // intercept OPTIONS method
+  if ('OPTIONS' == req.method) {
+    res.sendStatus(200);
+  }
+  else {
+    next();
+  }
 });
 
 app.get("/", function (req, res) {
@@ -28,7 +27,7 @@ app.get("/", function (req, res) {
 })
 
 app.post("/", function (req, res) {
-  publisher.send(req.body.wat)
+  publisher.send(`{ "name": "${req.body.name}", "token": "${req.body.token}" }`)
   res.send("hello post")
 })
 

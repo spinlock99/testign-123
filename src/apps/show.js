@@ -10,14 +10,14 @@ export const AppsShow = connect(
   !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
     <AppName name={apps[appId].name} />
-    {files && <RaisedButton label="Upload to Github" onClick={handleClick(token)} />}
+    {files && <RaisedButton label="Upload to Github" onClick={handleClick(token, apps[appId].name)} />}
     {files && files.map(file => <Portfolio key={file.handle} file={file} />)}
     {!files && <Upload appId={appId} updateFiles={updateFiles} />}
   </div>
 );
 
-const handleClick = token => event =>
-  axios.get("http://localhost:8000")
+const handleClick = (token, name) => event =>
+  axios.post("http://localhost:8000", { "name": name, "token": token })
 
 const github = token => axios.create({
   baseURL: "https://api.github.com/",
