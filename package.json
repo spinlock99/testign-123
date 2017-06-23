@@ -1,10 +1,14 @@
 {
   "dependencies": {
     "axios": "^0.16.1",
+    "body-parser": "^1.17.2",
+    "concurrently": "^3.5.0",
     "dexie": "next",
+    "express": "^4.15.3",
     "github-api": "^3.0.0",
     "immutable": "^3.8.1",
     "material-ui": "^0.17.4",
+    "node": "^0.0.0",
     "offline-plugin": "^4.7.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -16,7 +20,8 @@
     "redux-form": "^6.8.0",
     "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "zmq": "^2.15.3"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -34,7 +39,10 @@
     "webpack-dev-server": "^2.4.4"
   },
   "scripts": {
-    "start": "webpack-dev-server --env=dev --progress --inline --hot",
+    "start": "concurrently --prefix \"[{name}]\" --names \"PUBLISHER, GITHUB, WEBPACK\" -c \"blue,magenta,cyan\" \"npm run publisher\" \"npm run github\" \"npm run webpack\"",
+    "webpack": "webpack-dev-server --env=dev --progress --inline --hot",
+    "publisher": "node publisher.js",
+    "github": "node workers/github.js",
     "build": "rm -r docs/ && webpack --env=prod --progress --profile --colors",
     "postbuild": "git add .; git commit --amend; git push origin master"
   }

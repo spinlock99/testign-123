@@ -16,6 +16,9 @@ export const AppsShow = connect(
   </div>
 );
 
+const handleClick = token => event =>
+  axios.get("http://localhost:8000")
+
 const github = token => axios.create({
   baseURL: "https://api.github.com/",
   headers: { "Authorization": "bearer " + token }
@@ -46,7 +49,7 @@ const addReaction = id => ` mutation {
 const rejectErrors = ({ data: { data, errors } }) =>
   !!errors ? Promise.reject({ errors }) : data
 
-const handleClick = token => event =>
+const handleClickOld = token => event =>
   github(token)
     .post("graphql", data(findIssueID))
     .then(rejectErrors)
