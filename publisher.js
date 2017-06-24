@@ -27,7 +27,7 @@ app.get("/", function (req, res) {
 })
 
 app.post("/", function (req, res) {
-  publisher.send(`{ "name": "${req.body.name}", "token": "${req.body.token}" }`)
+  publisher.send(JSON.stringify(req.body))
   res.send("hello post")
 })
 
