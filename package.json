@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "concurrently --prefix \"[{name}]\" --names \"PUBLISHER, GITHUB, WEBPACK\" -c \"blue,magenta,cyan\" \"npm run publisher\" \"npm run github\" \"npm run webpack\"",
-    "webpack": "webpack-dev-server --env=dev --progress --inline --hot",
+    "webpack": "webpack-dev-server --env=dev --inline --hot",
     "publisher": "node publisher.js",
     "github": "node workers/github.js",
     "build": "rm -r docs/ && webpack --env=prod --progress --profile --colors",
