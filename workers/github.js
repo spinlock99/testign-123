@@ -7,21 +7,22 @@ subscriber.subscribe("")
 
 subscriber.on("message", function (data) {
   const { name, token } = JSON.parse(data.toString())
-  console.log("github worker: ", JSON.parse(data.toString()))
+  console.log("creating repo ... sucka")
 
-  axios.create({
+  axios
+  .create({
     baseURL: "https://api.github.com/",
     headers: { "Authorization": "bearer " + token }
-  }).post("user/repos", {
+  })
+  .post("user/repos", {
     name: name,
     auto_init: true,
     private: false,
     gitignore_template: "nanoc"
-  }).then(
-    data => console.log("success: ", success),
-    errors => console.log("errors: ", errors))
+  })
+  .then(data => console.log("repo created"))
+  .catch(errors =>  console.log("errors: oops"))
 
-  console.log("repo created")
 })
 
 subscriber.connect("tcp://localhost:5556")
