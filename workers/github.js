@@ -8,40 +8,47 @@ subscriber.subscribe("")
 
 subscriber.on("message", function (data) {
   const { handle, name, token } = JSON.parse(data.toString())
-  console.log("creating repo ...")
 
-  axios
-  .create({
+  const postData = (query, variables="{}") => ({ query , variables })
+  const findRepository = ` query {
+    repository(owner:"spinlock99", name: "${name}") {
+      id
+    }
+  }`
+
+  const github = axios.create({
     baseURL: "https://api.github.com/",
     headers: { "Authorization": "bearer " + token }
   })
-  .get("user/repos")
-  .then(repos => {
-    if (!repos.filter(repo => repo.name === name)) {
-      axios
-      .create({
-        baseURL: "https://api.github.com/",
-        headers: { "Authorization": "bearer " + token }
-      })
-      .post("user/repos", {
+  github.post("graphql", postData(findRepository))
+  .then(repository => {
+    if (!repository.data.data.repository) {
+      console.log("creating repo ...")
+      return github.post("user/repos", {
         name: name,
         auto_init: true,
         private: false
       })
       .then(data => console.log("repo created"))
+    } else {
+      console.log("repo exists: ", repository.data.data)
     }
   })
-  .catch(errors =>  console.log("errors: oops"))
-  .finally(() =>
+  .catch(errors =>  console.log("errors: oops", errors))
+  .finally(data =>
     exec(`cd /tmp/todo-pwa/; \
+      git co master; \
+      git pull; \
+      git co -B ${name.replace(/\s+/g, '-')}; \
       sed -i.backup "s|ICON|https://process.filestackapi.com/resize=width:140/${handle}|" manifest.json; \
       rm manifest.json.backup; \
       git add manifest.json; \
       git commit -m "updated icon"; \
-      git push -f "https://spinlock99:${token}@github.com/spinlock99/test-app.git" test-app:master`,
-      (event, stdout, stderr) => {
-        if (event instanceof Error) {
-          console.error(event);
+      git push -f "https://spinlock99:${token}@github.com/spinlock99/${name.replace(/\s+/g, '-')}.git" ${name.replace(/\s+/g, '-')}:master; \
+      git co master`,
+      (e, stdout, stderr) => {
+        if (e instanceof Error) {
+          console.error(e);
           throw e;
         }
         console.log('stdout ', stdout);
