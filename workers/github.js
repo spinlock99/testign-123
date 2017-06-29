@@ -40,9 +40,16 @@ subscriber.on("message", function (data) {
       git co master; \
       git pull; \
       git co -B ${name.replace(/\s+/g, '-')}; \
-      sed -i.backup "s|ICON|https://process.filestackapi.com/resize=width:140/${handle}|" manifest.json; \
-      rm manifest.json.backup; \
-      git add manifest.json; \
+      for file in manifest.json src/index.ejs webpack.dev.js webpack.prod.js
+      do
+        echo "migrating $file"; \
+        sed \
+          -i.backup \
+          -e "s|NAME|${name}|" \
+          -e "s|ICON|https://process.filestackapi.com/resize=width:140/${handle}|" $file; \
+        rm $file.backup; \
+        git add $file; \
+      done
       git commit -m "updated icon"; \
       git push -f "https://spinlock99:${token}@github.com/spinlock99/${name.replace(/\s+/g, '-')}.git" ${name.replace(/\s+/g, '-')}:master; \
       git co master`,

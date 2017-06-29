@@ -6384,20 +6384,20 @@ function useColors() {
   // NB: In an Electron preload script, document will be defined but not fully
   // initialized. Since we know we're in Chrome, we'll just detect this case
   // explicitly
-  if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
+  if (window && window.process && window.process.type === 'renderer') {
     return true;
   }
 
   // is webkit? http://stackoverflow.com/a/16459606/376773
   // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
-  return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
+  return (document && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
     // is firebug? http://stackoverflow.com/a/398120/376773
-    (typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
+    (window && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
     // is firefox >= v31?
     // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
+    (navigator && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
     // double check webkit in userAgent just in case we are in a worker
-    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
+    (navigator && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
 }
 
 /**
@@ -27102,7 +27102,7 @@ var AppsShow = exports.AppsShow = (0, _reactRedux.connect)(function (state, ownP
     "div",
     null,
     _react2.default.createElement(AppName, { name: apps[appId].name }),
-    files && _react2.default.createElement(_RaisedButton2.default, { label: "Upload to Github", onClick: handleClick(token) }),
+    files && _react2.default.createElement(_RaisedButton2.default, { label: "Upload to Github", onClick: handleClick(token, apps[appId]) }),
     files && files.map(function (file) {
       return _react2.default.createElement(Portfolio, { key: file.handle, file: file });
     }),
@@ -27110,22 +27110,56 @@ var AppsShow = exports.AppsShow = (0, _reactRedux.connect)(function (state, ownP
   );
 });
 
-var handleClick = function handleClick(token) {
+var handleClick = function handleClick(token, app) {
   return function (event) {
-    return _axios2.default.post("https://api.github.com/graphql", {
-      //
-      // query the schema
-      // query: " query { __schema { types { name kind description fields { name } } } } ",
-      //
-      query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
-      variables: '{ "numberOfRepos": 3 }'
-    }, { headers: { "Authorization": "bearer " + token } }).then(function (_ref2) {
-      var _ref2$data = _ref2.data,
-          data = _ref2$data.data,
-          errors = _ref2$data.errors;
-      return !!errors ? errors.forEach(function (error) {
-        return console.log("Github Error: ", error.message);
-      }) : console.log(data);
+    return _axios2.default.post("http://localhost:8000", {
+      "handle": app.files[0].handle,
+      "name": app.name,
+      "token": token
+    });
+  };
+};
+
+var github = function github(token) {
+  return _axios2.default.create({
+    baseURL: "https://api.github.com/",
+    headers: { "Authorization": "bearer " + token }
+  });
+};
+var data = function data(query) {
+  var variables = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "{}";
+  return { query: query, variables: variables };
+};
+//
+// Query the Schema:
+//
+// query: " query { __schema { types { name kind description fields { name } } } } ",
+//
+
+//
+// Get Last 3 Repos:
+//
+// query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
+//
+var findIssueID = " query {\n  repository(owner:\"spinlock99\", name: \"atomic-apps\") {\n    issue(number: 1) { id }\n  }\n}";
+var addReaction = function addReaction(id) {
+  return " mutation {\n  addReaction(input: { subjectId: \"" + id + "\", content: HEART }) {\n    reaction { content }\n    subject { id }\n  }\n}";
+};
+var rejectErrors = function rejectErrors(_ref2) {
+  var _ref2$data = _ref2.data,
+      data = _ref2$data.data,
+      errors = _ref2$data.errors;
+  return !!errors ? Promise.reject({ errors: errors }) : data;
+};
+
+var handleClickOld = function handleClickOld(token) {
+  return function (event) {
+    return github(token).post("graphql", data(findIssueID)).then(rejectErrors).then(function (data) {
+      return data.repository.issue.id;
+    }).then(function (id) {
+      return github(token).post("graphql", data(addReaction(id))).then(rejectErrors);
+    }).catch(function (errors) {
+      return console.log("errors: ", errors);
     });
   };
 };
