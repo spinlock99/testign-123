@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
@@ -50,6 +50,6 @@
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
     "build": "rm -r docs/ && webpack --env=prod --progress --profile --colors",
-    "postbuild": "git add .; git commit -m \"build $(date +%s)\"; git push origin master"
+    "postbuild": "git add .; yarn version --new-version patch; git push origin master"
   }
 }
