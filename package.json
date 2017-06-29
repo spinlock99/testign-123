@@ -49,6 +49,6 @@
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
     "build": "rm -r docs/ && webpack --env=prod --progress --profile --colors",
-    "postbuild": "git add .; git commit --amend; git push origin master"
+    "postbuild": "git add .; git commit -m 'build'; git push origin master"
   }
 }
