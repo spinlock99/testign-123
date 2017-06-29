@@ -1,4 +1,5 @@
 {
+  "version": "0.0.1",
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
