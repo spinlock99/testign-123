@@ -1,0 +1,13 @@
+CACHE MANIFEST
+#ver:6/29/2017, 9:11:46 PM
+#plugin:4.8.1
+
+CACHE:
+/bin/bundle.js
+/bin/manifest.json
+/bin/launch.png
+/bin/launch-iphone.png
+/bin/
+
+NETWORK:
+*

@@ -1,26 +1,26 @@
 var __wpo = {
   "assets": {
     "main": [
-      "/atomic-apps/bundle.js",
-      "/atomic-apps/manifest.json",
-      "/atomic-apps/launch.png",
-      "/atomic-apps/launch-iphone.png",
-      "/atomic-apps/"
+      "/bin/bundle.js",
+      "/bin/manifest.json",
+      "/bin/launch.png",
+      "/bin/launch-iphone.png",
+      "/bin/"
     ],
     "additional": [],
     "optional": []
   },
   "externals": [],
   "hashesMap": {
-    "b28a9e30dcaa5b4a4d3821c9d741f5fcc89f9126": "/atomic-apps/bundle.js",
-    "53e9d597d97ff25e38f038188de6d7a0347275b2": "/atomic-apps/manifest.json",
-    "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "/atomic-apps/launch.png",
-    "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "/atomic-apps/launch-iphone.png",
-    "7102740985e1c1bd32854767e698f5988a0f1387": "/atomic-apps/"
+    "a31e8005a58a1b1c74d36e9a7ca196b0297a84e5": "/bin/bundle.js",
+    "53e9d597d97ff25e38f038188de6d7a0347275b2": "/bin/manifest.json",
+    "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "/bin/launch.png",
+    "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "/bin/launch-iphone.png",
+    "f7290914d21ccfe422f3289798ed358155f4302e": "/bin/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "6/28/2017, 9:07:10 PM",
+  "version": "6/29/2017, 9:11:46 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.8.1",
   "relativePaths": false
@@ -88,7 +88,7 @@ var __wpo = {
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/atomic-apps/";
+/******/ 	__webpack_require__.p = "/bin/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);
