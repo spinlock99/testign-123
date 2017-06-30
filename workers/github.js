@@ -37,7 +37,7 @@ subscriber.on("message", function (data) {
   .catch(errors =>  console.log("errors: oops", errors))
   .finally(data =>
     exec(`cd /tmp/todo-pwa/; \
-      git co master; \
+      git co template; \
       git pull; \
       git co -B ${name.replace(/\s+/g, '-')}; \
       for file in manifest.json src/index.ejs webpack.dev.js webpack.prod.js
@@ -46,13 +46,13 @@ subscriber.on("message", function (data) {
         sed \
           -i.backup \
           -e "s|NAME|${name}|" \
-          -e "s|ICON|https://process.filestackapi.com/resize=width:140/${handle}|" $file; \
+          -e "s|ICON|https://process.filestackapi.com/resize=width:144/${handle}|" $file; \
         rm $file.backup; \
         git add $file; \
       done
       git commit -m "updated icon"; \
       git push -f "https://spinlock99:${token}@github.com/spinlock99/${name.replace(/\s+/g, '-')}.git" ${name.replace(/\s+/g, '-')}:master; \
-      git co master`,
+      git co template`,
       (e, stdout, stderr) => {
         if (e instanceof Error) {
           console.error(e);
