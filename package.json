@@ -49,7 +49,7 @@
     "publisher": "node publisher.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
-    "build": "rm -r docs/ && webpack --env=prod --progress --profile --colors",
+    "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors",
     "postbuild": "git add .; yarn version --new-version patch; git push origin master"
   }
 }

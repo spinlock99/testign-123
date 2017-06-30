@@ -7,9 +7,9 @@ var OfflinePlugin = require("offline-plugin");
 module.exports = {
   entry: "./index.js",
   output: {
-    path: path.join(__dirname, "docs"),
+    path: path.join(__dirname, "bin"),
     filename: "bundle.js",
-    publicPath: "/atomic-apps/"
+    publicPath: "/bin/"
   },
   module: {
     loaders: [{
@@ -26,7 +26,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "process.env": { NODE_ENV: JSON.stringify("production") },
-      BASENAME: JSON.stringify("/atomic-apps/"),
+      BASENAME: JSON.stringify("/bin/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
     // uglify should be turned back on but it makes it hard to debug prod
