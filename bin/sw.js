@@ -1,29 +1,29 @@
 var __wpo = {
   "assets": {
     "main": [
-      "/bundle.js",
-      "/manifest.json",
-      "/launch.png",
-      "/launch-iphone.png",
-      "/"
+      "./bundle.js",
+      "./manifest.json",
+      "./launch.png",
+      "./launch-iphone.png",
+      "./"
     ],
     "additional": [],
     "optional": []
   },
   "externals": [],
   "hashesMap": {
-    "7aec37c7990ebe38177beb996e340c974ce9bd14": "/bundle.js",
-    "53e9d597d97ff25e38f038188de6d7a0347275b2": "/manifest.json",
-    "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "/launch.png",
-    "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "/launch-iphone.png",
-    "88c6d75a051ab1b4eafc696b312e47d7e5964bc6": "/"
+    "583d484bb5af308421c0021fdcf69f066514d3b6": "./bundle.js",
+    "53e9d597d97ff25e38f038188de6d7a0347275b2": "./manifest.json",
+    "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "./launch.png",
+    "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "./launch-iphone.png",
+    "cf37de5b38128a4a25e90e9801a03544532ab372": "./"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "6/29/2017, 9:33:27 PM",
+  "version": "6/29/2017, 9:35:14 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.8.1",
-  "relativePaths": false
+  "relativePaths": true
 };
 
 /******/ (function(modules) { // webpackBootstrap
@@ -88,7 +88,7 @@ var __wpo = {
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);
