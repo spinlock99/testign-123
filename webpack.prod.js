@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "bin"),
     filename: "bundle.js",
-    publicPath: "/bin/"
+    publicPath: "/"
   },
   module: {
     loaders: [{
@@ -26,7 +26,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "process.env": { NODE_ENV: JSON.stringify("production") },
-      BASENAME: JSON.stringify("/bin/"),
+      BASENAME: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
     // uglify should be turned back on but it makes it hard to debug prod
