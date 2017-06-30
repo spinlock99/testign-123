@@ -1,26 +1,26 @@
 var __wpo = {
   "assets": {
     "main": [
-      "/bin/bundle.js",
-      "/bin/manifest.json",
-      "/bin/launch.png",
-      "/bin/launch-iphone.png",
-      "/bin/"
+      "/bundle.js",
+      "/manifest.json",
+      "/launch.png",
+      "/launch-iphone.png",
+      "/"
     ],
     "additional": [],
     "optional": []
   },
   "externals": [],
   "hashesMap": {
-    "a31e8005a58a1b1c74d36e9a7ca196b0297a84e5": "/bin/bundle.js",
-    "53e9d597d97ff25e38f038188de6d7a0347275b2": "/bin/manifest.json",
-    "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "/bin/launch.png",
-    "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "/bin/launch-iphone.png",
-    "f7290914d21ccfe422f3289798ed358155f4302e": "/bin/"
+    "7aec37c7990ebe38177beb996e340c974ce9bd14": "/bundle.js",
+    "53e9d597d97ff25e38f038188de6d7a0347275b2": "/manifest.json",
+    "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "/launch.png",
+    "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "/launch-iphone.png",
+    "88c6d75a051ab1b4eafc696b312e47d7e5964bc6": "/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "6/29/2017, 9:11:46 PM",
+  "version": "6/29/2017, 9:33:27 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.8.1",
   "relativePaths": false
@@ -88,7 +88,7 @@ var __wpo = {
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/bin/";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);

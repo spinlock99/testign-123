@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/bin/";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 333);
@@ -25883,7 +25883,7 @@ var App = exports.App = function (_Component) {
         { store: this.store },
         _react2.default.createElement(
           _reactRouterDom.BrowserRouter,
-          { basename: "/bin/" },
+          { basename: "/" },
           _react2.default.createElement(
             _MuiThemeProvider2.default,
             null,
@@ -25951,7 +25951,7 @@ function install(options) {
     if (hasSW()) {
       var registration = navigator.serviceWorker
         .register(
-          "/bin/sw.js"
+          "/sw.js"
           
         );
 
@@ -25963,7 +25963,7 @@ function install(options) {
 
   
     if (window.applicationCache) {
-      var directory = "/bin/appcache/";
+      var directory = "/appcache/";
       var name = "manifest";
 
       var doLoad = function() {
