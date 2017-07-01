@@ -46,7 +46,7 @@
   "scripts": {
     "start": "concurrently --prefix \"[{name}]\" --names \"PUBLISHER, GITHUB, WEBPACK\" -c \"blue,magenta,cyan\" \"npm run publisher\" \"npm run github\" \"npm run webpack\"",
     "webpack": "webpack-dev-server --env=dev --inline --hot",
-    "publisher": "node publisher.js",
+    "publisher": "node atomic-apps.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
     "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors",

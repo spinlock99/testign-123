@@ -10,6 +10,7 @@ app.use(bodyParser.json())
 const publisher = zmq.socket("pub")
 publisher.bindSync("tcp://*:5556")
 
+/*
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -22,11 +23,13 @@ app.all('*', function(req, res, next) {
     next();
   }
 });
-
+*/
 app.post("/github", function (req, res) {
+  console.log("/github")
   publisher.send(JSON.stringify(req.body))
   res.sendStatus(200)
 })
+
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname + '/bin/index.html'))
 })
