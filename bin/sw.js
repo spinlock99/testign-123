@@ -12,7 +12,7 @@ var __wpo = {
   },
   "externals": [],
   "hashesMap": {
-    "583d484bb5af308421c0021fdcf69f066514d3b6": "./bundle.js",
+    "4c89dc6a93c04ead1b030da979aa802842df2a49": "./bundle.js",
     "53e9d597d97ff25e38f038188de6d7a0347275b2": "./manifest.json",
     "0d17b06c29b8c3b30cadb08f0bb673c343c6301d": "./launch.png",
     "cdefdcf5ce8e0d15b79f99bf3775a51ff32c16c4": "./launch-iphone.png",
@@ -20,7 +20,7 @@ var __wpo = {
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "6/29/2017, 9:41:42 PM",
+  "version": "7/1/2017, 2:32:45 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.8.1",
   "relativePaths": true

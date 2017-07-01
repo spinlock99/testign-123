@@ -27112,7 +27112,7 @@ var AppsShow = exports.AppsShow = (0, _reactRedux.connect)(function (state, ownP
 
 var handleClick = function handleClick(token, app) {
   return function (event) {
-    return _axios2.default.post("http://localhost:8000", {
+    return _axios2.default.post(__webpack_require__.i({"NODE_ENV":"production"}).SERVER_URL + "/github", {
       "handle": app.files[0].handle,
       "name": app.name,
       "token": token
