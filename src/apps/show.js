@@ -17,7 +17,7 @@ export const AppsShow = connect(
 );
 
 const handleClick = (token, app) => event =>
-  axios.post(`${process.env.SERVER_URL}/github`, {
+  axios.post("/github", {
     "handle": app.files[0].handle,
     "name": app.name,
     "token": token
