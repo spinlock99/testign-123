@@ -1,7 +1,8 @@
 const zmq = require("zmq")
-const exec = require("child_process").exec
+const spawn = require("child_process").spawn
 const axios = require("axios")
 require("promise.prototype.finally").shim()
+const path = require("path")
 
 const subscriber = zmq.socket("sub")
 subscriber.subscribe("")
@@ -35,34 +36,13 @@ subscriber.on("message", function (data) {
     }
   })
   .catch(errors =>  console.log("errors: oops", errors))
-  .finally(data =>
-    exec(`cd /tmp/todo-pwa/; \
-      git co template; \
-      git pull; \
-      git co -B ${name.replace(/\s+/g, '-')}; \
-      for file in manifest.json src/index.ejs webpack.dev.js webpack.prod.js
-      do
-        echo "migrating $file"; \
-        sed \
-          -i.backup \
-          -e "s|NAME|${name}|" \
-          -e "s|ICON|https://process.filestackapi.com/resize=width:144/${handle}|" $file; \
-        rm $file.backup; \
-        git add $file; \
-      done
-      git commit -m "updated icon"; \
-      git push -f "https://spinlock99:${token}@github.com/spinlock99/${name.replace(/\s+/g, '-')}.git" ${name.replace(/\s+/g, '-')}:master; \
-      git co template`,
-      (e, stdout, stderr) => {
-        if (e instanceof Error) {
-          console.error(e);
-          throw e;
-        }
-        console.log('stdout ', stdout);
-        console.log('stderr ', stderr);
-      }
-    )
-  )
+  .finally(data => {
+    const script = path.join(__dirname, "github.sh")
+    upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, token])
+    upload.stdout.on("data", output => console.log("stdout: " + output))
+    upload.stderr.on("data", error => console.log("stderr: " + error))
+    upload.on("exit", code => console.log("github upload exited with code: " + code))
+  })
 })
 
 subscriber.connect("tcp://localhost:5556")
