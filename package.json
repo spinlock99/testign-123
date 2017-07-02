@@ -41,12 +41,13 @@
     "react-hot-loader": "next",
     "style-loader": "^0.16.1",
     "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.4"
+    "webpack-dev-server": "^2.4.4",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "scripts": {
-    "start": "concurrently --prefix \"[{name}]\" --names \"PUBLISHER, GITHUB, WEBPACK\" -c \"blue,magenta,cyan\" \"npm run publisher\" \"npm run github\" \"npm run webpack\"",
+    "start": "concurrently --prefix \"[{name}]\" --names \"ATOMIC-APPS,GITHUB\" -c \"magenta,cyan\" \"npm run atomic-apps\" \"npm run github\"",
     "webpack": "webpack-dev-server --env=dev --inline --hot",
-    "publisher": "node atomic-apps.js",
+    "atomic-apps": "nodemon atomic-apps.js --watch atomic-apps.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
     "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors",

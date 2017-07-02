@@ -1,6 +1,11 @@
 var express = require("express")
-var app = express()
 var path = require("path")
+var webpack = require("webpack")
+var webpackDevMiddleware = require("webpack-dev-middleware")
+var webpackHotMiddleware = require("webpack-hot-middleware")
+var config = require("./webpack.dev.js")
+
+var app = express()
 const bodyParser = require("body-parser")
 const zmq = require("zmq")
 
@@ -10,29 +15,29 @@ app.use(bodyParser.json())
 const publisher = zmq.socket("pub")
 publisher.bindSync("tcp://*:5556")
 
-/*
-app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
-   // intercept OPTIONS method
-  if ('OPTIONS' == req.method) {
-    res.sendStatus(200);
-  }
-  else {
-    next();
-  }
-});
-*/
 app.post("/github", function (req, res) {
   console.log("/github")
   publisher.send(JSON.stringify(req.body))
   res.sendStatus(200)
 })
 
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/bin/index.html'))
-})
+if (process.env.NODE_ENV !== "production") {
+  var compiler = webpack(config)
+  app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }))
+  app.use(webpackHotMiddleware(compiler))
+  app.get("*", function (req, res, next) {
+    compiler.outputFileSystem.readFile(path.join(__dirname, "index.html"), function (err, result) {
+      if (err) { return next(err) }
+      res.set('content-type', 'text/html')
+      res.send(result)
+      res.end()
+    })
+  })
+} else {
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname + '/bin/index.html'))
+  })
+}
 
 app.listen(8080)
 console.log("Atomic Apps listening on port 8080")
