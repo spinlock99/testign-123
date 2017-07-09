@@ -47,7 +47,7 @@
   "scripts": {
     "start": "concurrently --prefix \"[{name}]\" --names \"ATOMIC-APPS,GITHUB\" -c \"magenta,cyan\" \"npm run atomic-apps\" \"npm run github\"",
     "webpack": "webpack-dev-server --env=dev --inline --hot",
-    "atomic-apps": "nodemon atomic-apps.js --watch atomic-apps.js",
+    "atomic-apps": "node atomic-apps.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
     "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors"
