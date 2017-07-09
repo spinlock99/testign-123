@@ -23,7 +23,7 @@ app.post("/github", function (req, res) {
 
 app.post("/github-webhook", function (req, res) {
   console.log("/github-webhook")
-  publisher.send(["github-webhook", JSON.stringify(req.body)])
+  publisher.send(["webhook", JSON.stringify(req.body)])
   res.sendStatus(200)
 })
 

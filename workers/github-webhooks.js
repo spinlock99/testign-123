@@ -5,7 +5,7 @@ require("promise.prototype.finally").shim()
 const path = require("path")
 
 const subscriber = zmq.socket("sub")
-subscriber.subscribe("github-webhook")
+subscriber.subscribe("webhook")
 
 subscriber.on("message", function (channel, data) {
   constole.log("channel: ", channel)
