@@ -50,7 +50,6 @@
     "atomic-apps": "nodemon atomic-apps.js --watch atomic-apps.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
-    "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors",
-    "postbuild": "git add .; yarn version --new-version patch; git push origin master"
+    "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors"
   }
 }
