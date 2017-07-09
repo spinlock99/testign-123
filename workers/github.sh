@@ -6,9 +6,9 @@ handle=$3
 token=$4
 
 cd /tmp/todo-pwa/
-git co template
+git checkout template
 git pull
-git co -B $file_name
+git checkout -B $file_name
 for file in manifest.json src/index.ejs webpack.dev.js webpack.prod.js
 do
   echo "migrating $file"
@@ -21,4 +21,4 @@ do
 done
 git commit -m "updated icon"
 git push -f "https://spinlock99:$token@github.com/spinlock99/$file_name.git" $file_name:master
-git co template
+git checkout template
