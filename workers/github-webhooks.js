@@ -8,5 +8,6 @@ const subscriber = zmq.socket("sub")
 subscriber.subscribe("github-webhook")
 
 subscriber.on("message", function (channel, data) {
+  constole.log("channel: ", channel)
   console.log(data)
 })
