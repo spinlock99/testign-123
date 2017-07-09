@@ -94,5 +94,13 @@ const LoginForm = reduxForm({ form: "login" })(props =>
              name="githubToken" />
     </div>
     <RaisedButton style={flushRight} type="submit">Submit</RaisedButton>
+      <ul>
+      <li>Github</li>
+      <li>upper right dropdown menu</li>
+      <li>settings</li>
+      <li>Personal access tokens</li>
+      <li>Generate new token</li>
+      <li>Paste token above</li>
+      </ul>
   </form>
 )
