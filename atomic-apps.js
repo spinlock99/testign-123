@@ -17,7 +17,13 @@ publisher.bindSync("tcp://*:5556")
 
 app.post("/github", function (req, res) {
   console.log("/github")
-  publisher.send(JSON.stringify(req.body))
+  publisher.send(["github", JSON.stringify(req.body)])
+  res.sendStatus(200)
+})
+
+app.post("/github-webhook", function (req, res) {
+  console.log("/github-webhook")
+  publisher.send(["github-webhook", JSON.stringify(req.body)])
   res.sendStatus(200)
 })
 

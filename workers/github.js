@@ -5,9 +5,9 @@ require("promise.prototype.finally").shim()
 const path = require("path")
 
 const subscriber = zmq.socket("sub")
-subscriber.subscribe("")
+subscriber.subscribe("github")
 
-subscriber.on("message", function (data) {
+subscriber.on("message", function (channel, data) {
   const { handle, name, token } = JSON.parse(data.toString())
 
   const postData = (query, variables="{}") => ({ query , variables })
