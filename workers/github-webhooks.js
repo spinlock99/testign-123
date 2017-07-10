@@ -1,5 +1,5 @@
 const zmq = require("zmq")
-const spawn = require("child_process").spawn
+const exec = require("child_process").exec
 const axios = require("axios")
 require("promise.prototype.finally").shim()
 const path = require("path")
@@ -13,8 +13,16 @@ subscriber.on("message", function (channel, data) {
   const { action, pull_request } = JSON.parse(data.toString())
   if (action === 'closed' && pull_request['merged']) {
     console.log("merged :)")
+    exec(
+      "cd /home/spinlock/atomic-apps; git checkout master; git pull; yarn; yarn build; pm2 restart all",
+      function (error, stdout, stderr) {
+        console.log("stdout: ", stdout)
+        console.log("sterr: ", stderr)
+        console.log("exited with code: ", error ? error.code : 0)
+      }
+    )
   } else {
-    console.log("not merged: ", pull_request)
+    console.log("not merged :(")
   }
 })
 
