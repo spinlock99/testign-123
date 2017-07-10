@@ -11,7 +11,7 @@ subscriber.on("message", function (channel, data) {
   console.log("channel: ", channel.toString())
 
   const jsonData = JSON.parse(data.toString())
-  console.log("jsonData: ", jsonData)
+  console.log("pull_request: ", jsonData['pull_request'])
 })
 
 subscriber.connect("tcp://localhost:5556")
