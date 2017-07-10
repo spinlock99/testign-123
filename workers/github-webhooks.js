@@ -8,6 +8,10 @@ const subscriber = zmq.socket("sub")
 subscriber.subscribe("webhook")
 
 subscriber.on("message", function (channel, data) {
-  constole.log("channel: ", channel)
-  console.log(data)
+  console.log("channel: ", channel.toString())
+
+  const jsonData = JSON.parse(data.toString())
+  console.log("data: ", jsonData)
 })
+
+subscriber.connect("tcp://localhost:5556")
