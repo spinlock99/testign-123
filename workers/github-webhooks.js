@@ -10,8 +10,8 @@ subscriber.subscribe("webhook")
 subscriber.on("message", function (channel, data) {
   console.log("channel: ", channel.toString())
 
-  const { pull_request } = JSON.parse(data.toString())
-  if (pull_request['action'] === 'closed' && pull_request['merged']) {
+  const { action, pull_request } = JSON.parse(data.toString())
+  if (action === 'closed' && pull_request['merged']) {
     console.log("merged :)")
   } else {
     console.log("not merged: ", pull_request)
