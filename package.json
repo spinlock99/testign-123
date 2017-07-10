@@ -24,9 +24,8 @@
     "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "zmq": "^2.15.3"
-  },
-  "devDependencies": {
+    "webpack": "^2.4.1",
+    "zmq": "^2.15.3",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -40,7 +39,6 @@
     "nodemon": "^1.11.0",
     "react-hot-loader": "next",
     "style-loader": "^0.16.1",
-    "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.4",
     "webpack-hot-middleware": "^2.18.0"
   },
@@ -50,6 +48,6 @@
     "atomic-apps": "node atomic-apps.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
-    "build": "rm -r bin/ && webpack --env=prod --progress --profile --colors"
+    "build": "rm -r bin/ && webpack --env=prod"
   }
 }
