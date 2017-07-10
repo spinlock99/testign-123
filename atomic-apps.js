@@ -40,6 +40,7 @@ if (process.env.NODE_ENV !== "production") {
     })
   })
 } else {
+  console.log("starting in production mode")
   app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname + '/bin/index.html'))
   })
