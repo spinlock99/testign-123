@@ -29,6 +29,7 @@ module.exports = {
       BASENAME: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
+    // TODO: add sourcemaps so it's not so hard to debug
     new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([
       { from: "manifest.json" },
