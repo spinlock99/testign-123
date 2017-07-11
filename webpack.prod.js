@@ -29,8 +29,7 @@ module.exports = {
       BASENAME: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz")
     }),
-    // uglify should be turned back on but it makes it hard to debug prod
-    //new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([
       { from: "manifest.json" },
       { from: "images/launch.png" },
