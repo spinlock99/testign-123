@@ -14,7 +14,7 @@ subscriber.on("message", function (channel, data) {
   if (action === 'closed' && pull_request['merged']) {
     console.log("merged :)")
     exec(
-      "cd /home/spinlock/atomic-apps; git checkout master; git pull; yarn; yarn build; pm2 restart all",
+      "cd /home/spinlock/atomic-apps; git checkout master; git pull; yarn; pm2 restart all",
       function (error, stdout, stderr) {
         console.log("stdout: ", stdout)
         console.log("sterr: ", stderr)
