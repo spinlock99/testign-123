@@ -49,6 +49,6 @@
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
     "build": "rm -r bin/ && webpack --env=prod",
-    "postbuild": "git add .; yarn version --new-version patch; git push origin master"
+    "postbuild": "git add .; yarn version --new-version patch; git push"
   }
 }
