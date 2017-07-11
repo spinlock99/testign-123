@@ -38,7 +38,7 @@ subscriber.on("message", function (channel, data) {
   .catch(errors =>  console.log("errors: oops", errors))
   .finally(data => {
     const script = path.join(__dirname, "github.sh")
-    upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, token])
+    const upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, token])
     upload.stdout.on("data", output => console.log("stdout: " + output))
     upload.stderr.on("data", error => console.log("stderr: " + error))
     upload.on("exit", code => console.log("github upload exited with code: " + code))
