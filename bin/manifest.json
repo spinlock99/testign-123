@@ -1,0 +1,15 @@
+{
+  "short_name": "AtomicApps",
+  "name": "Atomic App Store",
+  "icons": [
+    {
+      "src":"launch.png",
+      "sizes": "600x600",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#000",
+  "theme_color": "#536878",
+  "display": "standalone"
+}
