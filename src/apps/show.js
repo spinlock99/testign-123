@@ -10,9 +10,13 @@ export const AppsShow = connect(
   !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
     <AppName name={apps[appId].name} />
-    {files && <RaisedButton label="Upload to Github" onClick={handleClick(token, apps[appId])} />}
-    {files && files.map(file => <Portfolio key={file.handle} file={file} />)}
-    {!files && <Upload appId={appId} updateFiles={updateFiles} />}
+    {!files
+      ? <UploadIcon appId={appId} updateFiles={updateFiles} />
+      : <div>
+          <UploadRepo handleClick={handleClick(token, apps[appId])} />
+          {files.map(file => <Portfolio key={file.handle} file={file} />)}
+        </div>
+    }
   </div>
 );
 
@@ -70,28 +74,26 @@ const Portfolio = ({ file }) =>
     <img
       style={{ margin: "5vw" }}
       src={`https://process.filestackapi.com/resize=width:140/${file.handle}`} />
-    <img
-      style={{ margin: "5vw" }}
-      src={`https://process.filestackapi.com/resize=width:152/${file.handle}`} />
-    <img
-      style={{ margin: "5vw" }}
-      src={`https://process.filestackapi.com/resize=width:167/${file.handle}`} />
-    <img
-      style={{ margin: "5vw" }}
-      src={`https://process.filestackapi.com/resize=width:180/${file.handle}`} />
   </div>
 
-const Upload = ({ appId, updateFiles }) =>
+const UploadIcon = ({ appId, updateFiles }) =>
   <ReactFilestack
     apikey={FILESTACK_API_KEY}
     buttonText="Add Icon"
     onSuccess={result => updateFiles(appId, result)}
     render={({ onPick }) =>
       <div style={upload}>
-        <RaisedButton
-          label="Upload a File"
-          onClick={onPick} />
+        <FloatingActionButton onClick={onPick}>
+          <ContentAdd />
+        </FloatingActionButton>
       </div>} />
+
+const UploadRepo = ({ handleClick }) =>
+  <div style={upload}>
+    <FloatingActionButton onClick={handleClick}>
+      <ContentAdd />
+    </FloatingActionButton>
+  </div>
 
 const getAppId = (state, props) => props.match.params.appId
 
@@ -104,7 +106,7 @@ const getFiles = createSelector(
 );
 
 const imgCenter = { width: "90vw", display: "block", margin: "0 auto" };
-const upload = { marginTop: "40vh", textAlign: "center" };
+const upload = { position: "absolute", bottom: "15vh", right: "5vw" };
 
 import React from "react";
 import { Redirect } from "react-router-dom";
