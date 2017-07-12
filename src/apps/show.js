@@ -10,9 +10,13 @@ export const AppsShow = connect(
   !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
     <AppName name={apps[appId].name} />
-    {files && <UploadRepo handleClick={handleClick(token, apps[appId])} />}
-    {files && files.map(file => <Portfolio key={file.handle} file={file} />)}
-    {!files && <UploadIcon appId={appId} updateFiles={updateFiles} />}
+    {!files
+      ? <UploadIcon appId={appId} updateFiles={updateFiles} />
+      : <div>
+          <UploadRepo handleClick={handleClick(token, apps[appId])} />
+          {files.map(file => <Portfolio key={file.handle} file={file} />)}
+        </div>
+    }
   </div>
 );
 
