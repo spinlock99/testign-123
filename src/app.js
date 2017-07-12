@@ -77,7 +77,7 @@ export class App extends Component {
       <Provider store={this.store}>
         <Router basename={BASENAME}>
           <MuiThemeProvider>
-            <Paper style={{ height: "95vh" }}>
+            <Paper style={{ height: "98vh" }}>
               <AppBar
                 title="Atomic App Creator"
                 iconClassNameRight={icon}

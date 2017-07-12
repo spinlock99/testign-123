@@ -1,17 +1,16 @@
 import { Apps } from "./apps"
 import { AppsShow } from "./apps/show"
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { createToken } from "./data/actions";
-import db from "./data/db";
-import { Field, reduxForm } from "redux-form";
-import RaisedButton from "material-ui/RaisedButton";
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import { createToken } from "./data/actions"
+import db from "./data/db"
+import { Field, reduxForm } from "redux-form"
+import RaisedButton from "material-ui/RaisedButton"
 import React from "react"
 import { Redirect, Route, withRouter } from "react-router-dom"
 import { TextField } from "redux-form-material-ui";
 
 const centered = { margin: "20px auto", textAlign: "center", width: "100%" }
-const flushRight = { float: "right", marginTop: "20px" };
 
 export const Routes = props =>
   <div>
@@ -85,22 +84,24 @@ class Login extends React.Component {
   }
 }
 
+const bottomRight = { position: "absolute", bottom: "15vh", right: "5vw" };
 const LoginForm = reduxForm({ form: "login" })(props =>
   <form style={{ margin: 20 }} onSubmit={props.handleSubmit}>
     <div>
       <label htmlFor="githubToken">Github Token:</label>
       <Field component={TextField}
              hintText="Enter Github Token"
-             name="githubToken" />
+             name="githubToken"
+             style={{ margin: 20 }} />
     </div>
-    <RaisedButton style={flushRight} type="submit">Submit</RaisedButton>
-      <ul>
+    <ul>
       <li>Github</li>
       <li>upper right dropdown menu</li>
       <li>settings</li>
       <li>Personal access tokens</li>
       <li>Generate new token</li>
       <li>Paste token above</li>
-      </ul>
+    </ul>
+    <RaisedButton style={bottomRight} type="submit">Submit</RaisedButton>
   </form>
 )
