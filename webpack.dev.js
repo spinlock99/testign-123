@@ -4,10 +4,11 @@ var OfflinePlugin = require("offline-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  devtool: 'inline-source-map',
   entry: "./index.js",
   output: {
-    path: __dirname,
     filename: "bundle.js",
+    path: __dirname,
     publicPath: "/"
   },
   module: {
