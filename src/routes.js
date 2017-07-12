@@ -84,7 +84,6 @@ class Login extends React.Component {
   }
 }
 
-const bottomRight = { position: "absolute", bottom: "15vh", right: "5vw" };
 const LoginForm = reduxForm({ form: "login" })(props =>
   <form style={{ margin: 20 }} onSubmit={props.handleSubmit}>
     <div>
@@ -94,7 +93,7 @@ const LoginForm = reduxForm({ form: "login" })(props =>
              name="githubToken"
              style={{ margin: 20 }} />
     </div>
-    <ul>
+    <ul style={{ height: "60vh" }}>
       <li>Github</li>
       <li>upper right dropdown menu</li>
       <li>settings</li>
@@ -102,6 +101,10 @@ const LoginForm = reduxForm({ form: "login" })(props =>
       <li>Generate new token</li>
       <li>Paste token above</li>
     </ul>
-    <RaisedButton style={bottomRight} type="submit">Submit</RaisedButton>
+    <RaisedButton
+      label="Submit"
+      primary={true}
+      fullWidth={true}
+      type="submit" />
   </form>
 )
