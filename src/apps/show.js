@@ -84,14 +84,14 @@ const UploadIcon = ({ appId, updateFiles }) =>
     render={({ onPick }) =>
       <div style={upload}>
         <FloatingActionButton onClick={onPick}>
-          <ContentAdd />
+          <AddAPhoto />
         </FloatingActionButton>
       </div>} />
 
 const UploadRepo = ({ handleClick }) =>
   <div style={upload}>
     <FloatingActionButton onClick={handleClick}>
-      <ContentAdd />
+      <CloudUpload />
     </FloatingActionButton>
   </div>
 
@@ -110,7 +110,9 @@ const upload = { position: "absolute", bottom: "15vh", right: "5vw" };
 
 import React from "react";
 import { Redirect } from "react-router-dom";
+import AddAPhoto from "material-ui/svg-icons/image/add-a-photo"
 import { bindActionCreators } from "redux";
+import CloudUpload from "material-ui/svg-icons/file/cloud-upload"
 import { connect } from "react-redux";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import FloatingActionButton from "material-ui/FloatingActionButton";

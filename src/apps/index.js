@@ -1,19 +1,3 @@
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { createApp, updateName } from "../data/actions";
-import Divider from "material-ui/Divider";
-import RaisedButton from "material-ui/RaisedButton";
-import TextField from "material-ui/TextField";
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
-import DropDownMenu from "material-ui/DropDownMenu";
-import MenuItem from "material-ui/MenuItem";
-import FontIcon from "material-ui/FontIcon";
-import IconMenu from "material-ui/IconMenu";
-import IconButton from "material-ui/IconButton";
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-
 export const Apps = connect(
   state => ({
     apps: Object.keys(state.apps).map(key => state.apps[key]),
@@ -53,3 +37,19 @@ export const Apps = connect(
       onClick={event => createApp(name)} />
   </div>
 );
+
+import React from "react";
+import { Link, Redirect } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { createApp, updateName } from "../data/actions";
+import Divider from "material-ui/Divider";
+import RaisedButton from "material-ui/RaisedButton";
+import TextField from "material-ui/TextField";
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
+import DropDownMenu from "material-ui/DropDownMenu";
+import MenuItem from "material-ui/MenuItem";
+import FontIcon from "material-ui/FontIcon";
+import IconMenu from "material-ui/IconMenu";
+import IconButton from "material-ui/IconButton";
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
