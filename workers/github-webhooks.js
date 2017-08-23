@@ -6,6 +6,7 @@ const path = require("path")
 
 const subscriber = zmq.socket("sub")
 subscriber.subscribe("webhook")
+subscriber.connect("tcp://localhost:5556")
 
 subscriber.on("message", function (channel, data) {
   console.log("channel: ", channel.toString())
@@ -22,5 +23,3 @@ subscriber.on("message", function (channel, data) {
     console.log("not merged :(")
   }
 })
-
-subscriber.connect("tcp://localhost:5556")
