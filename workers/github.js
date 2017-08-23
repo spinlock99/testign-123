@@ -6,6 +6,7 @@ const path = require("path")
 
 const subscriber = zmq.socket("sub")
 subscriber.subscribe("github")
+subscriber.connect("tcp://localhost:5556")
 
 subscriber.on("message", function (channel, data) {
   const { handle, name, token } = JSON.parse(data.toString())
@@ -44,5 +45,3 @@ subscriber.on("message", function (channel, data) {
     upload.on("exit", code => console.log("github upload exited with code: " + code))
   })
 })
-
-subscriber.connect("tcp://localhost:5556")
