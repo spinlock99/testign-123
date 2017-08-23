@@ -12,3 +12,12 @@ provided by the offline plugin. also gives us app cache for safari on ios.
 
 # Manifest
 also use tags for safari on ios.
+
+# Quick Start
+```
+brew install zmq
+iexport PKG_CONFIG_PATH=/usr/local/Cellar/zeromq/4.0.4/lib/pkgconfig/
+yarn install zmq
+yarn install
+yarn start
+```
