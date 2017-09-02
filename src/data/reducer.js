@@ -71,3 +71,12 @@ export function tokenReducer(state="", action) {
       return state
   }
 }
+
+export function socketReducer(state="timestamp not set yet", action) {
+  switch(action.type) {
+    case "SET_TIME":
+      return action.payload
+    default:
+      return state
+  }
+}

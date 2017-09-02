@@ -2,15 +2,16 @@ export const Apps = connect(
   state => ({
     apps: Object.keys(state.apps).map(key => state.apps[key]),
     name: state.name,
-    redirect: state.redirect
+    redirect: state.redirect,
+    socket: state.socket
   }),
   dispatch => bindActionCreators({ createApp, updateName }, dispatch)
-)(({ apps, createApp, name, redirect, updateName }) => redirect !== ""
+)(({ apps, createApp, name, redirect, socket, updateName }) => redirect !== ""
   ? <Redirect to={`/apps/${redirect}`} />
   : <div style={{ padding: "20px" }}>
     <TextField
       value={name}
-      hintText="Enter App Name"
+      hintText={`Enter App Name ${socket}`}
       fullWidth={true}
       onKeyUp={event => {
         if (event.which === 13) {

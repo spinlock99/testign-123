@@ -1,4 +1,5 @@
 {
+  "license": "UNLICENSED",
   "version": "0.0.25",
   "dependencies": {
     "axios": "^0.16.1",
@@ -36,6 +37,8 @@
     "redux-form-material-ui": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
+    "socket.io-client": "^2.0.3",
+    "socketio": "^1.0.0",
     "style-loader": "^0.16.1",
     "webpack": "^2.4.1",
     "webpack-dashboard": "^1.0.0-5",
@@ -45,12 +48,13 @@
   },
   "scripts": {
     "dash": "webpack-dashboard -- yarn run atomic-apps",
-    "start": "concurrently --prefix \"[{name}]\" --names \"ATOMIC-APPS,GITHUB\" -c \"magenta,cyan\" \"yarn run atomic-apps\" \"yarn run github\"",
+    "start": "concurrently --prefix \"[{name}]\" --names \"ATOMIC-APPS,GITHUB,SOCKETIO\" -c \"magenta,cyan,blue\" \"yarn run atomic-apps\" \"yarn run github\" \"yarn run socketio\"",
     "build": "rm -r bin/ && yarn run webpack:prod",
     "postbuild": "git add .; yarn version --new-version patch; git push",
     "atomic-apps": "node atomic-apps.js",
     "github": "nodemon workers/github.js --watch workers/github.js",
     "github-debug": "node debug workers/github.js",
+    "socketio": "node socket-io.js",
     "webpack:dev": "webpack-dev-server --env=dev --inline --hot",
     "webpack:prod": "webpack --env=prod"
   }
