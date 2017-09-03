@@ -9,7 +9,8 @@ import {
   leftNavOpenReducer,
   nameReducer,
   redirectReducer,
-  tokenReducer
+  tokenReducer,
+  socketReducer
 } from "./data/reducer";
 import db from "./data/db";
 import thunk from "redux-thunk";
@@ -18,10 +19,19 @@ import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import React, { Component } from "react";
 import { reducer as formReducer } from "redux-form";
 
+import openSocket from "socket.io-client";
+const socket = openSocket("http://localhost:8000");
+
+function subscribeToTimer(callBack) {
+  socket.on("timer", timestamp => callBack(null, timestamp));
+  socket.emit("subscribeToTimer", 1000);
+}
+
 export class App extends Component {
   constructor(props) {
     super(props);
     this.store = this.configureStore();
+    subscribeToTimer((err, action) => this.store.dispatch(action));
   }
 
   componentDidMount() {
@@ -39,7 +49,8 @@ export class App extends Component {
       leftNavOpen: leftNavOpenReducer,
       name: nameReducer,
       redirect: redirectReducer,
-      token: tokenReducer
+      token: tokenReducer,
+      socket: socketReducer
     })
     const store = createStore(reducer, storeEnhancer);
 
@@ -50,7 +61,8 @@ export class App extends Component {
           leftNavOpenReducer,
           nameReducer,
           redirectReducer,
-          tokenReducer
+          tokenReducer,
+          socketReducer
         } = require("./data/reducer");
         const formReducer = require("redux-form").reducer
         const nextReducer = combineReducers({
@@ -59,7 +71,8 @@ export class App extends Component {
           leftNavOpen: leftNavOpenReducer,
           name: nameReducer,
           redirect: redirectReducer,
-          token: tokenReducer
+          token: tokenReducer,
+          socker: sockerReducer
         })
         store.replaceReducer(nextReducer);
       });
@@ -79,7 +92,7 @@ export class App extends Component {
           <MuiThemeProvider>
             <Paper style={{ height: "98vh" }}>
               <AppBar
-                title="Atomic App Creator"
+                title="Atomic app App Creator"
                 iconClassNameRight={icon}
                 onLeftIconButtonTouchTap={openLeftNav} />
               <LeftNav />

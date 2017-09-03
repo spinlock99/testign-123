@@ -28,6 +28,7 @@ app.post("/github-webhook", function (req, res) {
 })
 
 if (process.env.NODE_ENV !== "production") {
+  console.log("starting in development mode")
   var compiler = webpack(config)
   app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }))
   app.use(webpackHotMiddleware(compiler))

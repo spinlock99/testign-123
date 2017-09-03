@@ -2,6 +2,7 @@ var path = require("path");
 var webpack = require("webpack");
 var OfflinePlugin = require("offline-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var DashboardPlugin = require("webpack-dashboard/plugin");
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -24,6 +25,7 @@ module.exports = {
     }]
   },
   plugins: [
+    new DashboardPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       BASENAME: JSON.stringify("/"),
