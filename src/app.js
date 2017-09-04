@@ -33,6 +33,7 @@ export class App extends Component {
     super(props);
     this.store = this.configureStore();
     subscribeToTimer((err, action) => this.store.dispatch(action));
+    socket.on("hello", event => console.log('hi'));
   }
 
   componentDidMount() {
