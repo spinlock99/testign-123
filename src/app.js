@@ -18,6 +18,7 @@ import { Provider } from "react-redux";
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import React, { Component } from "react";
 import { reducer as formReducer } from "redux-form";
+import RaisedButton from "material-ui/RaisedButton";
 
 import openSocket from "socket.io-client";
 const socket = openSocket(`${SOCKET}`);
@@ -96,7 +97,9 @@ export class App extends Component {
                 iconClassNameRight={icon}
                 onLeftIconButtonTouchTap={openLeftNav} />
               <LeftNav />
-              <button onClick={socket.emit("subscribeToTimer", 1000)}>Subscribe to Timer</button>
+              <RaisedButton
+                label="Subscribe to Timer"
+                onClick={socket.emit("subscribeToTimer", 1000)} />
               <div style={{ minHeight: "100%", position: "relative" }}>
                 <Routes dispatch={this.store.dispatch} />
               </div>
