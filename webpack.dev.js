@@ -30,7 +30,7 @@ module.exports = {
     new webpack.DefinePlugin({
       BASENAME: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz"),
-      HOST: JSON.stringify("http://localhost")
+      SOCKET: JSON.stringify("http://localhost:8000")
     }),
     new HtmlWebpackPlugin({
       title: "Atomic App Store",

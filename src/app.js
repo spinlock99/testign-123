@@ -20,7 +20,7 @@ import React, { Component } from "react";
 import { reducer as formReducer } from "redux-form";
 
 import openSocket from "socket.io-client";
-const socket = openSocket(`${HOST}:8000`);
+const socket = openSocket(`${SOCKET}`);
 
 function subscribeToTimer(callBack) {
   socket.on("timer", timestamp => callBack(null, timestamp));
