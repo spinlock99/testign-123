@@ -99,7 +99,7 @@ export class App extends Component {
               <LeftNav />
               <RaisedButton
                 label="Subscribe to Timer"
-                onClick={socket.emit("subscribeToTimer", 1000)} />
+                onClick={event => socket.emit("subscribeToTimer", 1000)} />
               <div style={{ minHeight: "100%", position: "relative" }}>
                 <Routes dispatch={this.store.dispatch} />
               </div>
