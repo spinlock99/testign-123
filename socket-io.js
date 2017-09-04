@@ -2,7 +2,8 @@ const port = 8000
 const io = require('socket.io')()
 
 io.on("connection", (client) => {
-  console.log("a user connected")
+  console.log("a user connected");
+  client.emit("hello");
   client.on("subscribeToTimer", (interval) => {
     console.log("a user is subscribing to timer with interval: ", interval)
     setInterval(() => {
