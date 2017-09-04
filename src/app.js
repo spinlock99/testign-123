@@ -96,6 +96,7 @@ export class App extends Component {
                 iconClassNameRight={icon}
                 onLeftIconButtonTouchTap={openLeftNav} />
               <LeftNav />
+              <button onClick={socket.emit("subscribeToTimer", 1000)}>Subscribe to Timer</button>
               <div style={{ minHeight: "100%", position: "relative" }}>
                 <Routes dispatch={this.store.dispatch} />
               </div>
