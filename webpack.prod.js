@@ -28,7 +28,7 @@ module.exports = {
       "process.env": { NODE_ENV: JSON.stringify("production") },
       BASENAME: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz"),
-      SOCKET: JSON.stringify("https://largearcade.com/socket")
+      SOCKET: JSON.stringify("https://largearcade.com/socket.io")
     }),
     // TODO: add sourcemaps so it's not so hard to debug
     new webpack.optimize.UglifyJsPlugin(),
