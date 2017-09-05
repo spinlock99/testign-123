@@ -6,8 +6,16 @@ var webpackHotMiddleware = require("webpack-hot-middleware")
 var config = require("./webpack.dev.js")
 
 var app = express()
+var http = require("http").Server(app)
+var io = require("socket.io")(http)
+
+io.on("connection", function (socket) {
+  console.log("connected through express")
+})
+
 const bodyParser = require("body-parser")
 const zmq = require("zeromq")
+
 
 app.use(express.static(path.join(__dirname + "/bin")))
 app.use(bodyParser.json())
@@ -29,6 +37,7 @@ app.post("/github-webhook", function (req, res) {
 
 if (process.env.NODE_ENV !== "production") {
   console.log("starting in development mode")
+  console.log(config.output.publicPath)
   var compiler = webpack(config)
   app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }))
   app.use(webpackHotMiddleware(compiler))
