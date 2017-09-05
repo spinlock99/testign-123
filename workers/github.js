@@ -1,4 +1,4 @@
-const zmq = require("zmq")
+const zmq = require("zeromq")
 const spawn = require("child_process").spawn
 const axios = require("axios")
 require("promise.prototype.finally").shim()

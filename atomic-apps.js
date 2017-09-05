@@ -7,7 +7,7 @@ var config = require("./webpack.dev.js")
 
 var app = express()
 const bodyParser = require("body-parser")
-const zmq = require("zmq")
+const zmq = require("zeromq")
 
 app.use(express.static(path.join(__dirname + "/bin")))
 app.use(bodyParser.json())
