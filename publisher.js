@@ -1,6 +1,6 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-const zmq = require("zmq")
+const zmq = require("zeromq")
 
 const app = express()
 app.use(bodyParser.json())
