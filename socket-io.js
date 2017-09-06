@@ -3,7 +3,6 @@ const io = require('socket.io')()
 
 io.on("connection", (client) => {
   console.log("a user connected");
-  console.log(client);
   client.emit("hello", "all sockets");
   client.on("subscribeToTimer", (interval) => {
     console.log("a user is subscribing to timer with interval: ", interval)
