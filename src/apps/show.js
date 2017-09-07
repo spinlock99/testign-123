@@ -117,7 +117,7 @@ import { connect } from "react-redux";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import GitHub from "github-api";
-import ReactFilestack from "react-filestack";
+import ReactFilestack from "filestack-react";
 import RaisedButton from "material-ui/RaisedButton";
 import { updateFiles } from "../data/actions";
 import { createSelector } from "reselect";

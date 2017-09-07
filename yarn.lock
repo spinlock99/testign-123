@@ -2195,9 +2195,15 @@ filesize@^3.3.0:
   version "3.5.10"
   resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.5.10.tgz#fc8fa23ddb4ef9e5e0ab6e1e64f679a24a56761f"
 
-filestack-js@^0.6.0:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/filestack-js/-/filestack-js-0.6.3.tgz#4b68852b5fc3891cd1e6e89dba6b2405ab5f4ea8"
+filestack-js@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/filestack-js/-/filestack-js-0.9.1.tgz#8591dba23c0f1a227631233df6f2f07cb81a6c4d"
+
+filestack-react@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/filestack-react/-/filestack-react-1.3.6.tgz#42e497ebc402d659c9c22d197e3103306d070e81"
+  dependencies:
+    filestack-js "^0.9.1"
 
 fill-range@^2.1.0:
   version "2.2.3"
@@ -4616,12 +4622,6 @@ react-event-listener@^0.4.5:
     fbjs "^0.8.4"
     prop-types "^15.5.4"
     warning "^3.0.0"
-
-react-filestack@^0.9.1:
-  version "0.9.7"
-  resolved "https://registry.yarnpkg.com/react-filestack/-/react-filestack-0.9.7.tgz#5acbc47bdaf0ebe3a6f59b546cbec66774184c2b"
-  dependencies:
-    filestack-js "^0.6.0"
 
 react-hot-loader@next:
   version "3.0.0-beta.7"
