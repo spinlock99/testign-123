@@ -36,6 +36,9 @@ module.exports = {
       title: "Atomic App Store",
       template: "src/index.ejs"
     }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map'
+    }),
     new OfflinePlugin()
   ],
   devServer: {
