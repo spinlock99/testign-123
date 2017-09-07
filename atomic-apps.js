@@ -50,5 +50,6 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
-app.listen(8080)
-console.log("Atomic Apps listening on port 8080")
+app.listen(8080, function () {
+  console.log("Atomic Apps listening on port 8080")
+})
