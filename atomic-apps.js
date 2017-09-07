@@ -1,7 +1,6 @@
+const bodyParser = require("body-parser")
 var express = require("express")
 var path = require("path")
-
-const bodyParser = require("body-parser")
 const zmq = require("zeromq")
 
 var app = express()
