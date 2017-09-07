@@ -13,6 +13,7 @@ subscriber.on("message", function (channel, data) {
 
   const postData = (query, variables="{}") => ({ query , variables })
   const findRepository = ` query {
+    // TODO: support more github users than just me :(
     repository(owner:"spinlock99", name: "${name}") {
       id
     }
