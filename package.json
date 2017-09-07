@@ -2,15 +2,16 @@
   "license": "UNLICENSED",
   "version": "0.0.38",
   "dependencies": {
+    "axios": "^0.16.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "node": "^0.0.0",
     "pm2": "^2.5.0",
+    "promise.prototype.finally": "^2.0.1",
     "socket.io": "^2.0.3",
     "zeromq": "^4.6.0"
   },
   "devDependencies": {
-    "axios": "^0.16.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -27,7 +28,6 @@
     "node-inspector": "^1.1.1",
     "nodemon": "^1.11.0",
     "offline-plugin": "^4.7.0",
-    "promise.prototype.finally": "^2.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-filestack": "^0.9.1",
