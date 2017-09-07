@@ -23,17 +23,11 @@ import RaisedButton from "material-ui/RaisedButton";
 import openSocket from "socket.io-client";
 const socket = openSocket(`${SOCKET}`);
 
-function subscribeToTimer(callBack) {
-  socket.on("timer", timestamp => callBack(null, timestamp));
-  socket.emit("subscribeToTimer", 1000);
-}
-
 export class App extends Component {
   constructor(props) {
     super(props);
     this.store = this.configureStore();
-    subscribeToTimer((err, action) => this.store.dispatch(action));
-    socket.on("hello", event => console.log('hi'));
+    this.subscribeToTimer((err, action) => this.store.dispatch(action));
   }
 
   componentDidMount() {
@@ -83,6 +77,11 @@ export class App extends Component {
     return store;
   }
 
+  subscribeToTimer(callBack) {
+    socket.on("timer", timestamp => callBack(null, timestamp));
+    socket.emit("subscribeToTimer", 1000);
+  }
+
   render() {
     const icon = "muidocs-icon-navigation-expand-more";
     const action = { type: "TOGGLE_LEFT_NAV", payload: true };
@@ -98,9 +97,6 @@ export class App extends Component {
                 iconClassNameRight={icon}
                 onLeftIconButtonTouchTap={openLeftNav} />
               <LeftNav />
-              <RaisedButton
-                label="Subscribe to Timer"
-                onClick={event => socket.emit("subscribeToTimer", 1000)} />
               <div style={{ minHeight: "100%", position: "relative" }}>
                 <Routes dispatch={this.store.dispatch} />
               </div>
