@@ -3,12 +3,14 @@ export const AppsShow = connect(
     apps: getApps(state),
     appId: getAppId(state, ownProps),
     files: getFiles(state, ownProps),
+    flash: state.flash,
     token: state.token
   }),
   dispatch => bindActionCreators({ updateFiles }, dispatch)
-)(({ apps, appId, files, token, updateFiles }) =>
+)(({ apps, appId, files, flash, token, updateFiles }) =>
   !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
+    {flash && <span>{flash}</span>}
     <AppName name={apps[appId].name} />
     {!files
       ? <UploadIcon appId={appId} updateFiles={updateFiles} />

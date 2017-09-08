@@ -31,6 +31,15 @@ export function appsReducer(state={}, action) {
   }
 }
 
+export function flashReducer(state="", action) {
+  switch(action.type) {
+    case "FLASH":
+      return action.payload
+    default:
+      return state;
+  }
+}
+
 export function leftNavOpenReducer(state=false, action) {
   switch(action.type) {
     case "TOGGLE_LEFT_NAV":
