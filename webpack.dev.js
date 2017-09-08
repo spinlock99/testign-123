@@ -29,7 +29,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       BASENAME: JSON.stringify("/"),
-      FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz"),
+      FILESTACK_API_KEY: JSON.stringify(process.env.FILESTACK_API_KEY),
       SOCKET: JSON.stringify("http://localhost:8000")
     }),
     new HtmlWebpackPlugin({
