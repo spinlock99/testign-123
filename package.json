@@ -57,7 +57,7 @@
     "github-debug": "node debug workers/github.js",
     "github-webhooks": "node workers/github-webhooks.js",
     "socketio": "node socket-io.js",
-    "webpack:dev": "webpack-dev-server --env=dev --inline --hot",
-    "webpack:prod": "webpack --env=prod"
+    "webpack:dev": "FILESTACK_API_KEY=$FILESTACK_API_KEY webpack-dev-server --env=dev --inline --hot",
+    "webpack:prod": "FILESTACK_API_KEY=$FILESTACK_API_KEY webpack --env=prod"
   }
 }

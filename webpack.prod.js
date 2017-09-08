@@ -27,7 +27,7 @@ module.exports = {
     new webpack.DefinePlugin({
       "process.env": { NODE_ENV: JSON.stringify("production") },
       BASENAME: JSON.stringify("/"),
-      FILESTACK_API_KEY: JSON.stringify("A20mv1w46TXymdcWvpYuQz"),
+      FILESTACK_API_KEY: JSON.stringify(process.env.FILESTACK_API_KEY),
       SOCKET: JSON.stringify("https://www.largearcade.com")
     }),
     // TODO: add sourcemaps so it's not so hard to debug
