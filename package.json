@@ -1,6 +1,6 @@
 {
   "license": "UNLICENSED",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
