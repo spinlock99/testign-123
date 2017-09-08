@@ -8,6 +8,9 @@ const subscriber = zmq.socket("sub")
 subscriber.subscribe("github")
 subscriber.connect("tcp://localhost:5556")
 
+const publisher = zmq.socket("pub")
+publisher.bindSync("tcp://*:5557")
+
 subscriber.on("message", function (channel, data) {
   const { handle, name, token } = JSON.parse(data.toString())
 
@@ -43,6 +46,9 @@ subscriber.on("message", function (channel, data) {
     const upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, token])
     upload.stdout.on("data", output => console.log("stdout: " + output))
     upload.stderr.on("data", error => console.log("stderr: " + error))
-    upload.on("exit", code => console.log("github upload exited with code: " + code))
+    upload.on("exit", code => {
+      publisher.send(["github", "Success: github upload complete"])
+      console.log("github upload exited with code: " + code)
+    })
   })
 })

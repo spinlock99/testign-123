@@ -6,6 +6,7 @@ import Paper from "material-ui/Paper";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import {
   appsReducer,
+  flashReducer,
   leftNavOpenReducer,
   nameReducer,
   redirectReducer,
@@ -28,6 +29,7 @@ export class App extends Component {
     super(props);
     this.store = this.configureStore();
     this.subscribeToTimer((err, action) => this.store.dispatch(action));
+    socket.on("redux", action => this.store.dispatch(action));
   }
 
   componentDidMount() {
@@ -41,6 +43,7 @@ export class App extends Component {
     const storeEnhancer =  composeEnhancers(applyMiddleware(thunk));
     const reducer = combineReducers({
       apps: appsReducer,
+      flash: flashReducer,
       form: formReducer,
       leftNavOpen: leftNavOpenReducer,
       name: nameReducer,
@@ -54,6 +57,7 @@ export class App extends Component {
       module.hot.accept("./data/reducer", () => {
         const {
           appsReducer,
+          flashReducer,
           leftNavOpenReducer,
           nameReducer,
           redirectReducer,
@@ -64,6 +68,7 @@ export class App extends Component {
         const nextReducer = combineReducers({
           apps: appsReducer,
           form: formReducer,
+          flash: flashReducer,
           leftNavOpen: leftNavOpenReducer,
           name: nameReducer,
           redirect: redirectReducer,
