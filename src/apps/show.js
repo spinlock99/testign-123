@@ -6,11 +6,10 @@ export const AppsShow = connect(
     flash: state.flash,
     token: state.token
   }),
-  dispatch => bindActionCreators({ updateFiles }, dispatch)
-)(({ apps, appId, files, flash, token, updateFiles }) =>
+  dispatch => bindActionCreators({ clearFlash, updateFiles }, dispatch)
+)(({ apps, appId, clearFlash, files, flash, token, updateFiles }) =>
   !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
   <div>
-    {flash && <span>{flash}</span>}
     <AppName name={apps[appId].name} />
     {!files
       ? <UploadIcon appId={appId} updateFiles={updateFiles} />
@@ -19,6 +18,11 @@ export const AppsShow = connect(
           {files.map(file => <Portfolio key={file.handle} file={file} />)}
         </div>
     }
+    <Snackbar
+      open={!!flash.length}
+      message={flash}
+      autoHideDuration={4000}
+      onRequestClose={clearFlash} />
   </div>
 );
 
@@ -121,6 +125,7 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import GitHub from "github-api";
 import ReactFilestack from "filestack-react";
 import RaisedButton from "material-ui/RaisedButton";
-import { updateFiles } from "../data/actions";
+import Snackbar from "material-ui/Snackbar";
+import { clearFlash, updateFiles } from "../data/actions";
 import { createSelector } from "reselect";
 import axios from "axios";
