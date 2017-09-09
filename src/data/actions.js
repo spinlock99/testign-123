@@ -105,3 +105,10 @@ function clearInRedux() {
     type: "CLEAR_TODOS"
   };
 }
+
+export function clearFlash() {
+  return {
+    type: "FLASH",
+    payload: ""
+  }
+}
