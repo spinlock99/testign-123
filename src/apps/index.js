@@ -27,7 +27,12 @@ export const Apps = connect(
     <div style={{ height: "70vh", overflow: "scroll" }}>
       {!!apps.length && apps.map(app => (
         <div key={app.id}>
-          <Link to={`/apps/${app.id}`}>{app.name}</Link><br />
+          <Card>
+            <CardHeader
+              title={<Link to={`/apps/${app.id}`}>{app.name}</Link>}
+              subtitle="Subtitle"
+              avatar={avatar(app.files)} /> />
+          </Card>
         </div>
       ))}
     </div>
@@ -39,11 +44,15 @@ export const Apps = connect(
   </div>
 );
 
+const avatar = files => `https://process.filestackapi.com/resize=width:140/${files[0].handle}`
+
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import { connect } from "react-redux";
 import { createApp, updateName } from "../data/actions";
+import { createSelector } from "reselect";
 import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
