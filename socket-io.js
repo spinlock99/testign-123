@@ -1,10 +1,12 @@
 const port = 8000
 const io = require('socket.io')()
+const path = require("path")
 const zmq = require("zeromq")
+const zmqSockets = require(path.join(__dirname + "/config/zeromq.json"))
 
 const subscriber = zmq.socket("sub")
 subscriber.subscribe("github")
-subscriber.connect("tcp://localhost:5557")
+subscriber.connect(zmqSockets["web-socket-sub"])
 
 io.on("connection", client => {
   subscriber.on("message", function (channel, data) {

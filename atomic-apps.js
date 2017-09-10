@@ -8,7 +8,7 @@ const app = express()
 app.use(bodyParser.json())
 
 const publisher = zmq.socket("pub")
-publisher.bindSync(zmqSockets["worker-fanout"])
+publisher.bindSync(zmqSockets["worker-pub"])
 
 app.post("/github", function (req, res) {
   console.log("/github")
