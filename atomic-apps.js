@@ -2,12 +2,13 @@ const bodyParser = require("body-parser")
 var express = require("express")
 var path = require("path")
 const zmq = require("zeromq")
+const zmqSockets = require(path.join(__dirname + "/config/zeromq.json"))
 
 var app = express()
 app.use(bodyParser.json())
 
 const publisher = zmq.socket("pub")
-publisher.bindSync("tcp://*:5556")
+publisher.bindSync(zmqSockets["worker-fanout"])
 
 app.post("/github", function (req, res) {
   console.log("/github")
@@ -35,7 +36,7 @@ if (process.env.NODE_ENV === "production") {
   var webpack = require("webpack")
   var webpackDevMiddleware = require("webpack-dev-middleware")
   var webpackHotMiddleware = require("webpack-hot-middleware")
-  var config = require("./webpack.dev.js")
+  var config = require(path.join(__dirname + "/webpack.dev.js"))
 
   var compiler = webpack(config)
   app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }))

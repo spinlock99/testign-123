@@ -1,0 +1,3 @@
+{
+  "worker-fanout": "tcp://*:5556"
+}
