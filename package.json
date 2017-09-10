@@ -1,7 +1,7 @@
 {
   "license": "UNLICENSED",
   "private": true,
-  "version": "0.0.50",
+  "version": "0.0.51",
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
