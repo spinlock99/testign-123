@@ -1,15 +1,17 @@
-const zmq = require("zeromq")
-const spawn = require("child_process").spawn
-const axios = require("axios")
 require("promise.prototype.finally").shim()
+
+const axios = require("axios")
 const path = require("path")
+const spawn = require("child_process").spawn
+const zmq = require("zeromq")
+const zmqSockets = require("../config/zeromq.json")
 
 const subscriber = zmq.socket("sub")
 subscriber.subscribe("github")
-subscriber.connect("tcp://localhost:5556")
+subscriber.connect(zmqSockets["worker-sub"])
 
 const publisher = zmq.socket("pub")
-publisher.bindSync("tcp://*:5557")
+publisher.bindSync(zmqSockets["web-socket-pub"])
 
 subscriber.on("message", function (channel, data) {
   const { handle, name, token } = JSON.parse(data.toString())

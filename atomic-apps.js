@@ -1,13 +1,14 @@
 const bodyParser = require("body-parser")
-var express = require("express")
-var path = require("path")
+const express = require("express")
+const path = require("path")
 const zmq = require("zeromq")
+const zmqSockets = require(path.join(__dirname + "/config/zeromq.json"))
 
-var app = express()
+const app = express()
 app.use(bodyParser.json())
 
 const publisher = zmq.socket("pub")
-publisher.bindSync("tcp://*:5556")
+publisher.bindSync(zmqSockets["worker-pub"])
 
 app.post("/github", function (req, res) {
   console.log("/github")
@@ -32,21 +33,26 @@ if (process.env.NODE_ENV === "production") {
 } else {
   // require development only packages
 
-  var webpack = require("webpack")
-  var webpackDevMiddleware = require("webpack-dev-middleware")
-  var webpackHotMiddleware = require("webpack-hot-middleware")
-  var config = require("./webpack.dev.js")
+  const webpack = require("webpack")
+  const webpackDevMiddleware = require("webpack-dev-middleware")
+  const webpackHotMiddleware = require("webpack-hot-middleware")
+  const config = require(path.join(__dirname + "/webpack.dev.js"))
 
-  var compiler = webpack(config)
-  app.use(webpackDevMiddleware(compiler, { publicPath: config.output.publicPath }))
+  const compiler = webpack(config)
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath
+  }))
   app.use(webpackHotMiddleware(compiler))
   app.get("*", function (req, res, next) {
-    compiler.outputFileSystem.readFile(path.join(__dirname, "index.html"), function (err, result) {
-      if (err) { return next(err) }
-      res.set('content-type', 'text/html')
-      res.send(result)
-      res.end()
-    })
+    compiler.outputFileSystem.readFile(
+      path.join(__dirname, "index.html"),
+      function (err, result) {
+        if (err) { return next(err) }
+        res.set('content-type', 'text/html')
+        res.send(result)
+        res.end()
+      }
+    )
   })
 }
 

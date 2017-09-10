@@ -1,0 +1,6 @@
+{
+  "worker-pub": "tcp://*:5556",
+  "worker-sub": "tcp://localhost:5556",
+  "web-socket-pub": "tcp://*:5557",
+  "web-socket-sub": "tcp://localhost:5557"
+}
