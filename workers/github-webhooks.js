@@ -4,7 +4,7 @@ const axios = require("axios")
 const path = require("path")
 const spawn = require("child_process").spawn
 const zmq = require("zeromq")
-const zmqSockets = require(path.join(__dirname + "../config/zeromq.json"))
+const zmqSockets = require("../config/zeromq.json")
 
 const subscriber = zmq.socket("sub")
 subscriber.subscribe("webhook")
