@@ -1,85 +1,39 @@
-export const AppsShow = connect(
-  (state, ownProps) => ({
-    apps: getApps(state),
-    appId: getAppId(state, ownProps),
-    files: getFiles(state, ownProps),
-    flash: state.flash,
-    token: state.token
-  }),
-  dispatch => bindActionCreators({ clearFlash, updateFiles }, dispatch)
-)(({ apps, appId, clearFlash, files, flash, token, updateFiles }) =>
-  !apps[appId] ? <Redirect to={{ pathname: '/' }}/> :
-  <div>
-    <AppName name={apps[appId].name} />
-    {!files
-      ? <UploadIcon appId={appId} updateFiles={updateFiles} />
-      : <div>
-          <UploadRepo handleClick={handleClick(token, apps[appId])} />
-          {files.map(file => <Portfolio key={file.handle} file={file} />)}
-        </div>
-    }
-    <Snackbar
-      open={!!flash.length}
-      message={flash}
-      autoHideDuration={4000}
-      onRequestClose={clearFlash} />
-  </div>
-);
+import React from "react"
+import { Redirect } from "react-router-dom"
+import AddAPhoto from "material-ui/svg-icons/image/add-a-photo"
+import { bindActionCreators } from "redux"
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import CloudUpload from "material-ui/svg-icons/file/cloud-upload"
+import { connect } from "react-redux"
+import ContentAdd from "material-ui/svg-icons/content/add"
+import FloatingActionButton from "material-ui/FloatingActionButton"
+import GitHub from "github-api"
+import ReactFilestack from "filestack-react"
+import RaisedButton from "material-ui/RaisedButton"
+import Snackbar from "material-ui/Snackbar"
+import { clearFlash, updateFiles } from "../data/actions"
+import { createSelector } from "reselect"
+import axios from "axios"
 
-const handleClick = (token, app) => event =>
-  axios.post("/github", {
-    "handle": app.files[0].handle,
-    "name": app.name,
-    "token": token
-  })
+/*
+ * Style Helpers
+ */
+const imgCenter = { width: "90vw", display: "block", margin: "0 auto" }
+const upload = { position: "absolute", bottom: "15vh", right: "5vw" }
 
-const github = token => axios.create({
-  baseURL: "https://api.github.com/",
-  headers: { "Authorization": "bearer " + token }
-})
-const data = (query, variables="{}") => ({ query , variables })
-//
-// Query the Schema:
-//
-// query: " query { __schema { types { name kind description fields { name } } } } ",
-//
+/*
+ * Component Helpers
+ */
+const AppName = props => <h3 style={{ marginLeft: "5vw" }}>{props.name}</h3>
 
-//
-// Get Last 3 Repos:
-//
-// query: "query($numberOfRepos:Int!) { viewer { login name repositories(last: $numberOfRepos) { nodes { name } } } }",
-//
-const findIssueID = ` query {
-  repository(owner:"spinlock99", name: "atomic-apps") {
-    issue(number: 1) { id }
-  }
-}`
-const addReaction = id => ` mutation {
-  addReaction(input: { subjectId: "${id}", content: HEART }) {
-    reaction { content }
-    subject { id }
-  }
-}`
-const rejectErrors = ({ data: { data, errors } }) =>
-  !!errors ? Promise.reject({ errors }) : data
-
-const handleClickOld = token => event =>
-  github(token)
-    .post("graphql", data(findIssueID))
-    .then(rejectErrors)
-    .then(data => data.repository.issue.id)
-    .then(id => github(token)
-      .post("graphql", data(addReaction(id)))
-      .then(rejectErrors))
-    .catch(errors => console.log("errors: ", errors))
-
-const AppName = ({ name }) => <h3 style={{ marginLeft: "5vw" }}>{name}</h3>
-
-const Portfolio = ({ file }) =>
+const Portfolio = props =>
   <div>
     <img
       style={{ margin: "5vw" }}
-      src={`https://process.filestackapi.com/resize=width:140/${file.handle}`} />
+      src={
+        `https://process.filestackapi.com/resize=width:140/
+          ${props.file.handle}`
+      } />
   </div>
 
 const UploadIcon = ({ appId, updateFiles }) =>
@@ -94,38 +48,85 @@ const UploadIcon = ({ appId, updateFiles }) =>
         </FloatingActionButton>
       </div>} />
 
-const UploadRepo = ({ handleClick }) =>
+const UploadRepo = props =>
   <div style={upload}>
-    <FloatingActionButton onClick={handleClick}>
+    <FloatingActionButton onClick={props.handleClick}>
       <CloudUpload />
     </FloatingActionButton>
   </div>
 
+const CardExampleWithAvatar = props => (
+  <Card>
+    <CardMedia
+      overlay={<CardTitle title={props.name} subtitle="Overlay subtitle" />}
+    >
+      <img
+        src={`https://process.filestackapi.com/resize=width:600/
+          ${props.file.handle}`}
+        alt="" />
+    </CardMedia>
+    <CardText>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+    </CardText>
+    <CardActions>
+    </CardActions>
+  </Card>
+)
+
+/*
+ * Event Handlers
+ */
+const handleClick = (token, app) => event =>
+  axios.post("/github", {
+    "handle": app.files[0].handle,
+    "name": app.name,
+    "token": token
+  })
+
+/*
+ * State Selectors
+ */
 const getAppId = (state, props) => props.match.params.appId
-
-const getApps = state => !!Object.keys(state.apps).length ? state.apps : false;
-
+const getApps = state => !!Object.keys(state.apps).length ? state.apps : false
 const getFiles = createSelector(
   getAppId,
   getApps,
   (appId, apps) => !apps ? false : apps[appId].files
-);
+)
 
-const imgCenter = { width: "90vw", display: "block", margin: "0 auto" };
-const upload = { position: "absolute", bottom: "15vh", right: "5vw" };
-
-import React from "react";
-import { Redirect } from "react-router-dom";
-import AddAPhoto from "material-ui/svg-icons/image/add-a-photo"
-import { bindActionCreators } from "redux";
-import CloudUpload from "material-ui/svg-icons/file/cloud-upload"
-import { connect } from "react-redux";
-import ContentAdd from "material-ui/svg-icons/content/add";
-import FloatingActionButton from "material-ui/FloatingActionButton";
-import GitHub from "github-api";
-import ReactFilestack from "filestack-react";
-import RaisedButton from "material-ui/RaisedButton";
-import Snackbar from "material-ui/Snackbar";
-import { clearFlash, updateFiles } from "../data/actions";
-import { createSelector } from "reselect";
-import axios from "axios";
+export const AppsShow = connect(
+  (state, ownProps) => ({
+    apps: getApps(state),
+    appId: getAppId(state, ownProps),
+    files: getFiles(state, ownProps),
+    flash: state.flash,
+    token: state.token
+  }),
+  dispatch => bindActionCreators({
+    clearFlash,
+    updateFiles
+  }, dispatch)
+)(props =>
+  !props.apps[props.appId]
+  ? <Redirect to={{ pathname: '/' }}/>
+  : <div>
+      {!props.files
+        ? <UploadIcon appId={props.appId} updateFiles={props.updateFiles} />
+        : <div>
+            <CardExampleWithAvatar
+              file={props.files[0]}
+              name={props.apps[props.appId].name} />
+            <UploadRepo
+              handleClick={handleClick(props.token, props.apps[props.appId])} />
+          </div>
+      }
+      <Snackbar
+        open={!!props.flash.length}
+        message={props.flash}
+        autoHideDuration={4000}
+        onRequestClose={props.clearFlash} />
+    </div>
+)
