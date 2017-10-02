@@ -87,6 +87,13 @@ class Login extends React.Component {
 const LoginForm = reduxForm({ form: "login" })(props =>
   <form style={{ margin: 20 }} onSubmit={props.handleSubmit}>
     <div>
+      <label htmlFor="githubUsername">Github Username:</label>
+      <Field component={TextField}
+             hintText="Enter Github Username"
+             name="githubUsername"
+             style={{ margin: 20 }} />
+    </div>
+    <div>
       <label htmlFor="githubToken">Github Token:</label>
       <Field component={TextField}
              hintText="Enter Github Token"
