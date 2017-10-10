@@ -16,8 +16,9 @@ import IconMenu from "material-ui/IconMenu"
 import IconButton from "material-ui/IconButton"
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 
-const avatar = files =>
-  `https://process.filestackapi.com/resize=width:140/${files[0].handle}`
+const avatar = files => !!files && !files.length
+  ? `https://process.filestackapi.com/resize=width:140/${files[0].handle}`
+  : null
 
 export const Apps = connect(
   state => ({
