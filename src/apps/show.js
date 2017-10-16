@@ -79,11 +79,11 @@ const CardExampleWithAvatar = props => (
 /*
  * Event Handlers
  */
-const handleClick = (token, app) => event =>
+const handleClick = (currentUser, app) => event =>
   axios.post("/github", {
     "handle": app.files[0].handle,
     "name": app.name,
-    "token": token
+    "currentUser": currentUser
   })
 
 /*
@@ -103,7 +103,7 @@ export const AppsShow = connect(
     appId: getAppId(state, ownProps),
     files: getFiles(state, ownProps),
     flash: state.flash,
-    token: state.token
+    currentUser: state.session.get('currentUser').toJSON()
   }),
   dispatch => bindActionCreators({
     clearFlash,
@@ -120,7 +120,7 @@ export const AppsShow = connect(
               file={props.files[0]}
               name={props.apps[props.appId].name} />
             <UploadRepo
-              handleClick={handleClick(props.token, props.apps[props.appId])} />
+              handleClick={handleClick(props.currentUser, props.apps[props.appId])} />
           </div>
       }
       <Snackbar
