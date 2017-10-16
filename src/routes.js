@@ -60,7 +60,7 @@ class Login extends React.Component {
 
     db.table("users").toArray().then(users => {
       if (users.length > 0) {
-        this.setCurrentUser(users[users.length -1])
+        this.setCurrentUser(users[users.length - 1])
         auth.authenticate(o=>
           this.setState({ redirectToReferrer: true, loading: false }))
       } else {

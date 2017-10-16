@@ -1,4 +1,4 @@
-import { List, Map } from "immutable";
+import { Map } from "immutable";
 
 const SET_CURRENT_USER = "SET_CURRENT_USER"
 
