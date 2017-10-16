@@ -1,7 +1,7 @@
 {
   "license": "UNLICENSED",
   "private": true,
-  "version": "0.0.53",
+  "version": "0.0.54",
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
@@ -58,6 +58,6 @@
     "github-webhooks": "node workers/github-webhooks.js",
     "socketio": "node socket-io.js",
     "webpack:dev": "FILESTACK_API_KEY=$FILESTACK_API_KEY webpack-dev-server --env=dev --inline --hot",
-    "webpack:prod": "FILESTACK_API_KEY=$FILESTACK_API_KEY webpack --env=prod"
+    "webpack:prod": ". .env; FILESTACK_API_KEY=$FILESTACK_API_KEY webpack --env=prod"
   }
 }
