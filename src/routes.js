@@ -3,6 +3,7 @@ import { AppsShow } from "./apps/show"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { createToken } from "./data/actions"
+import { setCurrentUser } from "./data/session"
 import db from "./data/db"
 import { Field, reduxForm } from "redux-form"
 import RaisedButton from "material-ui/RaisedButton"
@@ -47,7 +48,7 @@ const auth = {
 
 const ReduxLogin = connect(
   state => ({}),
-  dispatch => bindActionCreators({ createToken }, dispatch)
+  dispatch => bindActionCreators({ createToken, setCurrentUser }, dispatch)
 )(props => <Login {...props} />)
 
 class Login extends React.Component {
@@ -57,10 +58,12 @@ class Login extends React.Component {
     this.state = { redirectToReferrer: false, loading: true }
     this.login = this.login.bind(this)
     this.createToken = this.props.createToken
+    this.setCurrentUser = this.props.setCurrentUser
 
     db.table("users").toArray().then(tokens => {
       if (tokens.length > 0) {
         this.createToken(tokens[tokens.length -1])
+        this.setCurrentUser(tokens[tokens.length -1])
         auth.authenticate(o=>
           this.setState({ redirectToReferrer: true, loading: false }))
       } else {
@@ -69,11 +72,12 @@ class Login extends React.Component {
     })
   }
 
-  login(values) {
-    this.createToken(values)
+  login(user) {
+    this.createToken(user)
+    this.setCurrentUser(user)
     db.table("users").add({
-      githubToken: values.githubToken,
-      githubUsername: values.githubUsername
+      githubToken: user.githubToken,
+      githubUsername: user.githubUsername
     }).then(
       id => auth.authenticate(o=> this.setState({ redirectToReferrer: true })))
   }
