@@ -10,9 +10,9 @@ import {
   leftNavOpenReducer,
   nameReducer,
   redirectReducer,
-  tokenReducer,
   socketReducer
 } from "./data/reducer";
+import { sessionReducer } from "./data/session"
 import db from "./data/db";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -48,7 +48,7 @@ export class App extends Component {
       leftNavOpen: leftNavOpenReducer,
       name: nameReducer,
       redirect: redirectReducer,
-      token: tokenReducer,
+      session: sessionReducer,
       socket: socketReducer
     })
     const store = createStore(reducer, storeEnhancer);
@@ -61,9 +61,9 @@ export class App extends Component {
           leftNavOpenReducer,
           nameReducer,
           redirectReducer,
-          tokenReducer,
           socketReducer
         } = require("./data/reducer");
+        const { sessionReducer } = require("./data/session")
         const formReducer = require("redux-form").reducer
         const nextReducer = combineReducers({
           apps: appsReducer,
@@ -72,8 +72,8 @@ export class App extends Component {
           leftNavOpen: leftNavOpenReducer,
           name: nameReducer,
           redirect: redirectReducer,
-          token: tokenReducer,
-          socker: sockerReducer
+          session: sessionReducer,
+          socket: socketReducer
         })
         store.replaceReducer(nextReducer);
       });

@@ -2,16 +2,6 @@ import db from "./db";
 const uuid = a=>a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,uuid);
 
 //
-// add github token to redux
-//
-export function createToken(token) {
-  return {
-    type: "CREATE_TOKEN",
-    payload: token
-  }
-}
-
-//
 // name is just what's shown in the input so that it can be synchronized between
 // elements on the page.
 // It is not stored in the database.

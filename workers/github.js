@@ -14,19 +14,18 @@ const publisher = zmq.socket("pub")
 publisher.bindSync(zmqSockets["web-socket-pub"])
 
 subscriber.on("message", function (channel, data) {
-  const { handle, name, token } = JSON.parse(data.toString())
+  const { handle, name, currentUser } = JSON.parse(data.toString())
 
   const postData = (query, variables="{}") => ({ query , variables })
   const findRepository = ` query {
-    // TODO: support more github users than just me :(
-    repository(owner:"spinlock99", name: "${name}") {
+    repository(owner:${currentUser.githubUsername}, name: "${name}") {
       id
     }
   }`
 
   const github = axios.create({
     baseURL: "https://api.github.com/",
-    headers: { "Authorization": "bearer " + token }
+    headers: { "Authorization": "bearer " + currentUser.githubToken}
   })
   github.post("graphql", postData(findRepository))
   .then(repository => {
@@ -45,7 +44,7 @@ subscriber.on("message", function (channel, data) {
   .catch(errors =>  console.log("errors: oops", errors))
   .finally(data => {
     const script = path.join(__dirname, "github.sh")
-    const upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, token])
+    const upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, currentUser.githubToken])
     upload.stdout.on("data", output => console.log("stdout: " + output))
     upload.stderr.on("data", error => console.log("stderr: " + error))
     upload.on("exit", code => {

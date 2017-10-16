@@ -71,16 +71,6 @@ export function redirectReducer(state="", action) {
   }
 }
 
-export function tokenReducer(state="", action) {
-  switch(action.type) {
-    case "CREATE_TOKEN":
-      return action.payload.githubToken
-    case "UPDATE_TOKEN":
-    default:
-      return state
-  }
-}
-
 export function socketReducer(state="timestamp not set yet", action) {
   switch(action.type) {
     case "SET_TIME":

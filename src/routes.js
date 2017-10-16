@@ -2,7 +2,7 @@ import { Apps } from "./apps"
 import { AppsShow } from "./apps/show"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { createToken } from "./data/actions"
+import { setCurrentUser } from "./data/session"
 import db from "./data/db"
 import { Field, reduxForm } from "redux-form"
 import RaisedButton from "material-ui/RaisedButton"
@@ -47,7 +47,7 @@ const auth = {
 
 const ReduxLogin = connect(
   state => ({}),
-  dispatch => bindActionCreators({ createToken }, dispatch)
+  dispatch => bindActionCreators({ setCurrentUser }, dispatch)
 )(props => <Login {...props} />)
 
 class Login extends React.Component {
@@ -56,11 +56,11 @@ class Login extends React.Component {
 
     this.state = { redirectToReferrer: false, loading: true }
     this.login = this.login.bind(this)
-    this.createToken = this.props.createToken
+    this.setCurrentUser = this.props.setCurrentUser
 
-    db.table("githubTokens").toArray().then(tokens => {
-      if (tokens.length > 0) {
-        this.createToken(tokens[tokens.length -1])
+    db.table("users").toArray().then(users => {
+      if (users.length > 0) {
+        this.setCurrentUser(users[users.length - 1])
         auth.authenticate(o=>
           this.setState({ redirectToReferrer: true, loading: false }))
       } else {
@@ -69,9 +69,12 @@ class Login extends React.Component {
     })
   }
 
-  login(values) {
-    this.createToken(values)
-    db.table("githubTokens").add({ githubToken: values.githubToken }).then(
+  login(user) {
+    this.setCurrentUser(user)
+    db.table("users").add({
+      githubToken: user.githubToken,
+      githubUsername: user.githubUsername
+    }).then(
       id => auth.authenticate(o=> this.setState({ redirectToReferrer: true })))
   }
 
@@ -87,12 +90,23 @@ class Login extends React.Component {
 const LoginForm = reduxForm({ form: "login" })(props =>
   <form style={{ margin: 20 }} onSubmit={props.handleSubmit}>
     <div>
+      <label htmlFor="githubUsername">Github Username:</label>
+      <Field component={TextField}
+             hintText="Enter Github Username"
+             name="githubUsername"
+             style={{ margin: 20 }} />
+    </div>
+    <div>
       <label htmlFor="githubToken">Github Token:</label>
       <Field component={TextField}
              hintText="Enter Github Token"
              name="githubToken"
              style={{ margin: 20 }} />
     </div>
+    <RaisedButton label="Submit"
+                  primary={true}
+                  style={{ float: "right" }}
+                  onClick={props.handleSubmit} />
     <ul style={{ height: "60vh" }}>
       <li>Github</li>
       <li>upper right dropdown menu</li>
