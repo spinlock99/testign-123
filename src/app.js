@@ -10,7 +10,6 @@ import {
   leftNavOpenReducer,
   nameReducer,
   redirectReducer,
-  tokenReducer,
   socketReducer
 } from "./data/reducer";
 import { sessionReducer } from "./data/session"
@@ -49,7 +48,6 @@ export class App extends Component {
       leftNavOpen: leftNavOpenReducer,
       name: nameReducer,
       redirect: redirectReducer,
-      token: tokenReducer,
       session: sessionReducer,
       socket: socketReducer
     })
@@ -63,7 +61,6 @@ export class App extends Component {
           leftNavOpenReducer,
           nameReducer,
           redirectReducer,
-          tokenReducer,
           socketReducer
         } = require("./data/reducer");
         const { sessionReducer } = require("./data/session")
@@ -75,7 +72,6 @@ export class App extends Component {
           leftNavOpen: leftNavOpenReducer,
           name: nameReducer,
           redirect: redirectReducer,
-          token: tokenReducer,
           session: sessionReducer,
           socket: socketReducer
         })

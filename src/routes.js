@@ -2,7 +2,6 @@ import { Apps } from "./apps"
 import { AppsShow } from "./apps/show"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { createToken } from "./data/actions"
 import { setCurrentUser } from "./data/session"
 import db from "./data/db"
 import { Field, reduxForm } from "redux-form"
@@ -48,7 +47,7 @@ const auth = {
 
 const ReduxLogin = connect(
   state => ({}),
-  dispatch => bindActionCreators({ createToken, setCurrentUser }, dispatch)
+  dispatch => bindActionCreators({ setCurrentUser }, dispatch)
 )(props => <Login {...props} />)
 
 class Login extends React.Component {
@@ -57,13 +56,11 @@ class Login extends React.Component {
 
     this.state = { redirectToReferrer: false, loading: true }
     this.login = this.login.bind(this)
-    this.createToken = this.props.createToken
     this.setCurrentUser = this.props.setCurrentUser
 
-    db.table("users").toArray().then(tokens => {
-      if (tokens.length > 0) {
-        this.createToken(tokens[tokens.length -1])
-        this.setCurrentUser(tokens[tokens.length -1])
+    db.table("users").toArray().then(users => {
+      if (users.length > 0) {
+        this.setCurrentUser(users[users.length -1])
         auth.authenticate(o=>
           this.setState({ redirectToReferrer: true, loading: false }))
       } else {
@@ -73,7 +70,6 @@ class Login extends React.Component {
   }
 
   login(user) {
-    this.createToken(user)
     this.setCurrentUser(user)
     db.table("users").add({
       githubToken: user.githubToken,
