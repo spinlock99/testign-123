@@ -58,7 +58,7 @@ class Login extends React.Component {
     this.login = this.login.bind(this)
     this.createToken = this.props.createToken
 
-    db.table("githubTokens").toArray().then(tokens => {
+    db.table("users").toArray().then(tokens => {
       if (tokens.length > 0) {
         this.createToken(tokens[tokens.length -1])
         auth.authenticate(o=>
@@ -71,7 +71,10 @@ class Login extends React.Component {
 
   login(values) {
     this.createToken(values)
-    db.table("githubTokens").add({ githubToken: values.githubToken }).then(
+    db.table("users").add({
+      githubToken: values.githubToken,
+      githubUsername: values.githubUsername
+    }).then(
       id => auth.authenticate(o=> this.setState({ redirectToReferrer: true })))
   }
 
@@ -100,6 +103,10 @@ const LoginForm = reduxForm({ form: "login" })(props =>
              name="githubToken"
              style={{ margin: 20 }} />
     </div>
+    <RaisedButton label="Submit"
+                  primary={true}
+                  style={{ float: "right" }}
+                  onClick={props.handleSubmit} />
     <ul style={{ height: "60vh" }}>
       <li>Github</li>
       <li>upper right dropdown menu</li>
