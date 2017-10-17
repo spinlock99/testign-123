@@ -3,7 +3,8 @@ echo "executing script"
 name=$1
 file_name=$2
 handle=$3
-token=$4
+username=$4
+token=$5
 
 cd /tmp/todo-pwa/
 git checkout template
@@ -20,5 +21,5 @@ do
   git add $file
 done
 git commit -m "updated icon"
-git push -f "https://spinlock99:$token@github.com/spinlock99/$file_name.git" $file_name:master
+git push -f "https://$username:$token@github.com/$username/$file_name.git" $file_name:master
 git checkout template

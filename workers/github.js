@@ -29,7 +29,7 @@ subscriber.on("message", function (channel, data) {
   })
   github.post("graphql", postData(findRepository))
   .then(repository => {
-    if (!repository.data.data.repository) {
+    if (!repository.data.data || !repository.data.data.repository) {
       console.log("creating repo ...")
       return github.post("user/repos", {
         name: name,
@@ -44,7 +44,7 @@ subscriber.on("message", function (channel, data) {
   .catch(errors =>  console.log("errors: oops", errors))
   .finally(data => {
     const script = path.join(__dirname, "github.sh")
-    const upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, currentUser.githubToken])
+    const upload = spawn(script, [name, name.replace(/\s+/g, '-'), handle, currentUser.githubUsername, currentUser.githubToken])
     upload.stdout.on("data", output => console.log("stdout: " + output))
     upload.stderr.on("data", error => console.log("stderr: " + error))
     upload.on("exit", code => {
