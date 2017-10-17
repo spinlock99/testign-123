@@ -93,7 +93,6 @@ const handleClick = (currentUser, app) => dispatch => event => {
   })
 }
 
-
 /*
  * State Selectors
  */
