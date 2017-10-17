@@ -11,6 +11,7 @@ subscriber.connect(zmqSockets["web-socket-sub"])
 io.on("connection", client => {
   subscriber.on("message", function (channel, data) {
     client.emit("redux", { type: "FLASH", payload: data.toString() })
+    client.emit("redux", { type: "SET_LOADING", payload: false })
   })
 
   console.log("a user connected");

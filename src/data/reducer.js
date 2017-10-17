@@ -49,6 +49,15 @@ export function leftNavOpenReducer(state=false, action) {
   }
 }
 
+export function loadingReducer(state=false, action) {
+  switch(action.type) {
+    case "SET_LOADING":
+      return action.payload
+    default:
+      return state
+  }
+}
+
 export function nameReducer(state="", action) {
   switch(action.type) {
     case "UPDATE_NAME":

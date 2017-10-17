@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom"
 import AddAPhoto from "material-ui/svg-icons/image/add-a-photo"
 import { bindActionCreators } from "redux"
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import CircularProgress from "material-ui/CircularProgress"
 import CloudUpload from "material-ui/svg-icons/file/cloud-upload"
 import { connect } from "react-redux"
 import ContentAdd from "material-ui/svg-icons/content/add"
@@ -20,6 +21,7 @@ import axios from "axios"
  */
 const imgCenter = { width: "90vw", display: "block", margin: "0 auto" }
 const upload = { position: "absolute", bottom: "15vh", right: "5vw" }
+const progress = { position: "relative", marginTop: 7 }
 
 /*
  * Component Helpers
@@ -50,8 +52,11 @@ const UploadIcon = ({ appId, updateFiles }) =>
 
 const UploadRepo = props =>
   <div style={upload}>
-    <FloatingActionButton onClick={props.handleClick}>
-      <CloudUpload />
+    <FloatingActionButton disabled={props.loading} onClick={props.handleClick}>
+      { props.loading
+        ? <CircularProgress style={progress} size={40} thickness={5} />
+        : <CloudUpload />
+      }
     </FloatingActionButton>
   </div>
 
@@ -79,12 +84,15 @@ const CardExampleWithAvatar = props => (
 /*
  * Event Handlers
  */
-const handleClick = (currentUser, app) => event =>
+const handleClick = (currentUser, app) => dispatch => event => {
+  dispatch({ type: "SET_LOADING", payload: true })
   axios.post("/github", {
     "handle": app.files[0].handle,
     "name": app.name,
     "currentUser": currentUser
   })
+}
+
 
 /*
  * State Selectors
@@ -103,10 +111,12 @@ export const AppsShow = connect(
     appId: getAppId(state, ownProps),
     files: getFiles(state, ownProps),
     flash: state.flash,
+    loading: state.loading,
     currentUser: state.session.get('currentUser').toJSON()
   }),
   dispatch => bindActionCreators({
     clearFlash,
+    handleClick,
     updateFiles
   }, dispatch)
 )(props =>
@@ -120,7 +130,8 @@ export const AppsShow = connect(
               file={props.files[0]}
               name={props.apps[props.appId].name} />
             <UploadRepo
-              handleClick={handleClick(props.currentUser, props.apps[props.appId])} />
+              handleClick={props.handleClick(props.currentUser, props.apps[props.appId])}
+              loading={props.loading} />
           </div>
       }
       <Snackbar

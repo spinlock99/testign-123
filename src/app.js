@@ -8,6 +8,7 @@ import {
   appsReducer,
   flashReducer,
   leftNavOpenReducer,
+  loadingReducer,
   nameReducer,
   redirectReducer,
   socketReducer
@@ -46,6 +47,7 @@ export class App extends Component {
       flash: flashReducer,
       form: formReducer,
       leftNavOpen: leftNavOpenReducer,
+      loading: loadingReducer,
       name: nameReducer,
       redirect: redirectReducer,
       session: sessionReducer,
@@ -59,6 +61,7 @@ export class App extends Component {
           appsReducer,
           flashReducer,
           leftNavOpenReducer,
+          loadingReducer,
           nameReducer,
           redirectReducer,
           socketReducer
@@ -70,6 +73,7 @@ export class App extends Component {
           form: formReducer,
           flash: flashReducer,
           leftNavOpen: leftNavOpenReducer,
+          loading: loadingReducer,
           name: nameReducer,
           redirect: redirectReducer,
           session: sessionReducer,
