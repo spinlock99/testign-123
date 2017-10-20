@@ -33,6 +33,7 @@ module.exports = {
     // TODO: add sourcemaps so it's not so hard to debug
     new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([
+      { from: "node_modules/autotrack/autotrack.js" },
       { from: "manifest.json" },
       { from: "images/launch.png" },
       { from: "images/launch-iphone.png" }

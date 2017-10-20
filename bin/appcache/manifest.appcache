@@ -1,9 +1,10 @@
 CACHE MANIFEST
-#ver:10/20/2017, 2:38:50 PM
+#ver:10/20/2017, 4:55:43 PM
 #plugin:4.8.3
 
 CACHE:
 ../bundle.js
+../autotrack.js
 ../manifest.json
 ../launch.png
 ../launch-iphone.png
