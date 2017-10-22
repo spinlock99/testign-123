@@ -1,3 +1,5 @@
+import "autotrack"
+
 const TRACKING_VERSION = "1"
 const dimensions = {
   TRACKING_VERSION: "dimension1",
@@ -18,6 +20,7 @@ const uuid = a=>a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-
 
 export function googleAnalytics() {
   window.ga = window.ga || ((...args) => (ga.q = ga.q || []).push(args))
+
   ga("create", "UA-98851522-2", "auto")
   ga("set", "transport", "beacon")
   ga("set", dimensions.TRACKING_VERSION, TRACKING_VERSION)
@@ -33,6 +36,7 @@ export function googleAnalytics() {
       originalBuildHitTask(model)
     })
   })
+
   ga("require", "clearnUrlTracker", {
     stripQuery: true,
     queryDimensionIndex: 1,
