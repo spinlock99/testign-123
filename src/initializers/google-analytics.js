@@ -37,13 +37,9 @@ export function googleAnalytics() {
     })
   })
 
-  ga("require", "clearnUrlTracker", {
-    stripQuery: true,
-    queryDimensionIndex: 1,
-    indexFilename: "index.html",
-    trailingSlash: "remove",
+  ga("require", "cleanUrlTracker", {
     urlFieldsFilter: function(fieldsObj, parseUrl) {
-      fieldsObj.page = parseUrl(fieldsObj.page).pathname.replace(/^\/apps\/(.+)/, "/apps/<app-id>")
+      fieldsObj.page = parseUrl(fieldsObj.page).pathname.replace(/apps\/(.*)/, 'apps/:id')
       return fieldsObj
     }
   })
