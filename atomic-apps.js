@@ -29,7 +29,7 @@ app.post("/github-webhook", function (req, res) {
  *  development -- use webpack middleware to compile and serve assets
  */
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname + "/bin")))
+  app.use('/apps', express.static(path.join(__dirname + "/bin")))
 } else {
   // require development only packages
 
