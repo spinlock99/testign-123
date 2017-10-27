@@ -16,7 +16,7 @@ export const Routes = props =>
   <div>
     <Route path="/login" component={ReduxLogin} />
     <Route path="/about" component={props => <h2>About</h2>} />
-    <PrivateRoute exact path="/" component={Apps} dispatch={props.dispatch} />
+    <PrivateRoute exact path="/apps" component={Apps} dispatch={props.dispatch} />
     <PrivateRoute path="/apps/:appId" component={AppsShow} dispatch={props.dispatch} />
   </div>
 
@@ -81,7 +81,7 @@ class Login extends React.Component {
   render() {
     if (this.state.loading) { return <span>loading</span> }
     if (this.state.redirectToReferrer) {
-      return <Redirect to={{ pathname: "/" }} />
+      return <Redirect to={{ pathname: "/apps" }} />
     }
     return <LoginForm onSubmit={this.login} />
   }

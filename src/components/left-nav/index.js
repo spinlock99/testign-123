@@ -23,7 +23,7 @@ export const LeftNav = connect(
       <ListItem primaryText={
         <NavLink
           exact
-          to="/"
+          to="/apps"
           onClick={props.closeLeftNav}
           activeStyle={activeStyle}
         >Home</NavLink>} />
