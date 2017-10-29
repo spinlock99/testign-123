@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 const publisher = zmq.socket("pub")
 publisher.bindSync(zmqSockets["worker-pub"])
 
-app.post("/github", function (req, res) {
+app.post("/apps/github", function (req, res) {
   console.log("/github")
   publisher.send(["github", JSON.stringify(req.body)])
   res.sendStatus(200)

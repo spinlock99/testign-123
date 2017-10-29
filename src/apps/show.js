@@ -86,7 +86,7 @@ const CardExampleWithAvatar = props => (
  */
 const handleClick = (currentUser, app) => dispatch => event => {
   dispatch({ type: "SET_LOADING", payload: true })
-  axios.post("/github", {
+  axios.post("/apps/github", {
     "handle": app.files[0].handle,
     "name": app.name,
     "currentUser": currentUser
