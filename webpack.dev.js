@@ -28,7 +28,7 @@ module.exports = {
     new DashboardPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      BASENAME: JSON.stringify("/"),
+      BASEtestign 123: JSON.stringify("/"),
       FILESTACK_API_KEY: JSON.stringify(process.env.FILESTACK_API_KEY),
       SOCKET: JSON.stringify("http://localhost:8000")
     }),
